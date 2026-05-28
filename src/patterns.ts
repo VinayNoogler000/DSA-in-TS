@@ -361,3 +361,30 @@ function pattern11(rows:number = 5):void {
         pattern = "";
     }
 }
+
+
+
+
+/*
+Pattern 12:
+A
+BB
+CCC
+DDDD
+EEEEE
+*/
+function pattern12(rows:number = 5):void {
+    console.log("Pattern 12:");
+    let pattern = "", element = 'A';
+
+    for (let i=0; i<rows; i++) {
+        for (let j=0; j<=i; j++) {
+            pattern += element;
+        }
+        console.log(pattern);
+        pattern = "";
+        element = String.fromCharCode(element.charCodeAt(0) + 1);
+    }
+}
+
+pattern12();
