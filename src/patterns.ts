@@ -1,5 +1,7 @@
 // // NOTE: You can run the entire file at once by using node/bun (or other runtime envs) to print all the patterns and confirm whether the code is working fine or not:
 
+import { incrementCharBy1, decrementCharBy1 } from "./util/characterFunctions";
+
 let pattern:string, element:string | number;
 
 /*
@@ -425,4 +427,32 @@ function pattern13(rows:number = 4):void {
     }
 }
 
-pattern13();
+
+
+
+/*
+Pattern 13:
+E
+DE
+CDE
+BCDE
+ABCDE
+*/
+function pattern14(rows:number = 5):void {
+    console.log("Pattern 13:");
+
+    let pattern = "", starElOfRow = 'E', currElAsCol = '';
+    for (let i=0; i<rows; i++) {
+        currElAsCol = starElOfRow;
+
+        for (let j=0; j<=i; j++) {
+            pattern += currElAsCol;
+            currElAsCol = incrementCharBy1(currElAsCol);
+        }
+
+        console.log(pattern);
+        pattern = "";
+        starElOfRow = decrementCharBy1(starElOfRow); 
+    }
+}
+pattern14();
