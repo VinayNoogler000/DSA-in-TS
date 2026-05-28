@@ -387,4 +387,42 @@ function pattern12(rows:number = 5):void {
     }
 }
 
-pattern12();
+
+
+
+/*
+Pattern 13:
+   A
+  ABA
+ ABCBA
+ABCDCBA
+*/
+function pattern13(rows:number = 4):void {
+    console.log("Pattern 13:");
+    
+    for (let i=1; i<=rows; i++) { // O(n*n) [ O(n*(n+n)) => O(n*2n) => O(n*n) ]
+        let pattern = "", element = 'A';
+
+        // print spaces
+        for (let j=rows; j>i; j--) { // O(n)
+            pattern += ' ';
+        }
+
+        // print alphabets
+        const cols = i * 2 - 1;
+        for (let k=1; k<=cols; k++) { // O(n)
+            pattern += element;
+            
+            if (k !== 1 && k >= cols/2) { // 'k' has reached or crossed the mid coloumn of the row, so print backwards by decrementing the characters/element by 1
+                element = String.fromCharCode(element.charCodeAt(0) - 1);
+            }
+            else { // 'k' has NOT reached the mid coloumn of the row, so print normally by incrementing the characters/element by 1
+                element = String.fromCharCode(element.charCodeAt(0) + 1);
+            }
+        }
+
+        console.log(pattern);
+    }
+}
+
+pattern13();
