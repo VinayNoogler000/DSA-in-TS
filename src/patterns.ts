@@ -588,4 +588,32 @@ function pattern16(rows:number = 9):void {
     }
 }
 
-pattern16(20);
+
+
+
+/*
+Pattern 17:
+*****
+*   *
+*   *
+*   *
+*****
+*/
+function pattern17(rows:number = 5):void {
+    let pattern = "";
+    
+    for (let i=0; i<rows; i++) {
+        for (let j=0; j<rows; j++) {
+            if (i === 0 || i === rows-1 || j === 0 || j === rows-1) {
+                pattern += '*';
+            }
+            else {
+                pattern += ' ';
+            }
+        }
+        console.log(pattern);
+        pattern = "";
+    }
+}
+
+pattern17();
