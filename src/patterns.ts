@@ -616,4 +616,37 @@ function pattern17(rows:number = 5):void {
     }
 }
 
-pattern17();
+
+
+
+/*
+Pattern 18:
+4 4 4 4 4 4 4
+4 3 3 3 3 3 4
+4 3 2 2 2 3 4
+4 3 2 1 2 3 4
+4 3 2 2 2 3 4
+4 3 3 3 3 3 4
+4 4 4 4 4 4 4
+*/
+function pattern18(rows:number = 7):void {
+    let element = Math.ceil(rows/2);
+
+    for (let i = 0; i < rows; i++) {
+        let pattern = "";
+        for (let j = 0; j < rows; j++) {
+            // Find the minimum distance to any of the 4 edges
+            const top = i;
+            const left = j;
+            const bottom = (rows - 1) - i;
+            const right = (rows - 1) - j;
+            
+            const minDistance = Math.min(top, left, bottom, right);
+            
+            // Calculate the value to print
+            pattern += (element - minDistance) + " ";
+        }
+        console.log(pattern.trim());
+    }
+}
+pattern18();
