@@ -520,4 +520,72 @@ function pattern15(rows:number = 10):void {
     }
 }
 
-pattern15();
+
+
+
+/*
+Pattern 16:
+*        *
+**      **
+***    ***
+****  ****
+**********
+****  ****
+***    ***
+**      **
+*        *
+*/
+function pattern16(rows:number = 9):void {
+    let firtHalfRows = Math.ceil(rows/2), secondHalfRows = Math.floor(rows/2), pattern:string;
+
+    // Loop to Print 1st half of Pattern
+    for (let i=firtHalfRows-1; i>=0; i--) {
+        pattern = "";
+
+        // Loop to Print LHS Triangle of *
+        for (let j=firtHalfRows-1; j>=i; j--) {
+            pattern += '*';
+        }
+
+        // Loop to Print Inverted Triangle of Spaces
+        for (let k=0; k<i*2; k++) {
+            pattern += ' ';
+        }
+
+        // Loop to Print RHS Triangle of *
+        for (let j=firtHalfRows-1; j>=i; j--) {
+            pattern += '*';
+        }
+
+        console.log(pattern);
+    }
+
+    // Loop to Print 2nd half of Pattern
+    for (let i=0; i<secondHalfRows; i++) {
+        pattern = "";
+
+        // Loop to Print LHS Triangle of *
+        for (let j=secondHalfRows; j>i; j--) {
+            pattern += '*';
+        }
+
+        // Loop to Print Inverted Triangle of Spaces
+        let spacesInRows: number;
+
+        if (rows % 2 !== 0) spacesInRows = i*2 + 2;
+        else spacesInRows = i*2;
+
+        for (let k=0; k<spacesInRows; k++) {
+            pattern += ' ';
+        }
+
+        // Loop to Print RHS Triangle of *
+        for (let j=secondHalfRows; j>i; j--) {
+            pattern += '*';
+        }
+
+        console.log(pattern);
+    }
+}
+
+pattern16(20);
