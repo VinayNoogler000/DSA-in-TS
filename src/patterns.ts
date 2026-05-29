@@ -473,7 +473,7 @@ Pattern 15:
 **********
 */
 function pattern15(rows:number = 10):void {
-    let halfOfTotalRows = rows/2, pattern = "";
+    let halfOfTotalRows = Math.floor(rows/2), pattern = "";
 
     // Loop to Print First Half of the Pattern
     for (let i=0; i<halfOfTotalRows; i++) { // iterate rows
