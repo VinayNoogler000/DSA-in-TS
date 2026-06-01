@@ -70,4 +70,18 @@ function GCD(n1:number, n2:number):number { // Brute-Force Approach [TC == O(min
 
     return gcd;
 }
-console.log(GCD(20, 15));
+
+function GCD2(n1:number, n2:number):number { // Better Approach [TC == O(min(n1,n2)) && SC == O(1) ]
+    let minNum = Math.min(n1,n2), currDivisor = minNum, gcd = 1;  
+    
+    while (currDivisor <= minNum) { // loop iterations are decreased in this approach, than 1st approach
+        if (n1 % currDivisor === 0 && n2 % currDivisor === 0 ) { // greatest common divisor found
+            gcd = currDivisor;
+            break;
+        }
+        currDivisor--;
+    }
+
+    return gcd;
+}
+console.log(GCD2(9,12));
