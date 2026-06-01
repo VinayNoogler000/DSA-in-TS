@@ -34,4 +34,23 @@ function reverseNum(n:number=12345):number { // Brute-Force Approach [TC == O(lo
 
     return reverse;
 }
-console.log(reverseNum(7789));
+
+
+
+
+// Q3: Given an integer N, return true if it is a palindrome else return false.
+function isPalindrome(n:number=4554):boolean { // Brute-Force Approach [TC == O(log10(n)) && SC == O(1) ]
+    let ogNum = n, reverse = 0, lastDigit:number;
+
+    while (n > 0) {
+        lastDigit = n % 10;
+        reverse = reverse * 10 + lastDigit;
+        n = Math.floor(n/10);
+    }
+    
+    if (ogNum === reverse) { 
+        return true;
+    }
+    return false;
+}
+console.log(isPalindrome(7789));
