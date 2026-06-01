@@ -23,7 +23,7 @@ function countDigits3( n:number=7789 ):number { // Optimal Approach by using Mat
 
 
 // Q2: Given an integer N return the reverse of the given number.
-function reverseNum(n:number=12345):number { // Brute-Force Approach [TC  && SC == O(log10(n))]
+function reverseNum(n:number=12345):number { // Brute-Force Approach [TC == O(log10(n)) && SC == O(1) ]
     let reverse = 0, lastDigit:number;
 
     while (n > 0) {
