@@ -53,4 +53,21 @@ function isPalindrome(n:number=4554):boolean { // Brute-Force Approach [TC == O(
     }
     return false;
 }
-console.log(isPalindrome(7789));
+
+
+
+
+// Q4: Given two integers N1 and N2, find their greatest common divisor.
+function GCD(n1:number, n2:number):number { // Brute-Force Approach [TC == O(min(n1,n2)) && SC == O(1) ]
+    let currDivisor = 1, gcd = 1, minNum = n1 < n2 ? n1 : n2;  
+    
+    while (currDivisor <= minNum) {
+        if (n1 % currDivisor === 0 && n2 % currDivisor === 0 ) { // common divisor found
+            gcd = currDivisor;
+        }
+        currDivisor++;
+    }
+
+    return gcd;
+}
+console.log(GCD(20, 15));
