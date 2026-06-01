@@ -19,4 +19,19 @@ function countDigits3( n:number=7789 ):number { // Optimal Approach by using Mat
     let count = Math.floor(Math.log10(n) + 1);
     return count;
 }
-console.log(countDigits3());
+
+
+
+// Q2: Given an integer N return the reverse of the given number.
+function reverseNum(n:number=12345):number { // Brute-Force Approach [TC  && SC == O(log10(n))]
+    let reverse = 0, lastDigit:number;
+
+    while (n > 0) {
+        lastDigit = n % 10;
+        reverse = (reverse * 10) + lastDigit;
+        n = Math.floor(n/10);
+    }
+
+    return reverse;
+}
+console.log(reverseNum(7789));
