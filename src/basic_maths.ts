@@ -10,3 +10,7 @@ function countDigits( n:number=12345 ):number { // output = 5
     
     return count;
 }
+
+function countDigits2( n:number=12345 ):number { // Another Approach using String - O()
+    return n.toString().length;
+}
