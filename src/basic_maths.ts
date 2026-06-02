@@ -167,4 +167,19 @@ function getAllDivisors3(n:number=36):number[] {
 
     return result;
 }
-console.log(getAllDivisors3(12));
+
+
+
+
+// Q6: Given an integer N, check whether it is prime or not. A prime number is a number that is only divisible by 1 and itself, making the total number of divisors only 2.
+function isPrime(n:number=10): boolean { // Brute-Force approach - [TC O(n) && SC 0(1)]
+    let divisor = 2;
+
+    while (divisor < n) {
+        if (n % divisor === 0) return false;
+        divisor++;
+    }
+    
+    return true;
+}
+console.log(isPrime(2));
