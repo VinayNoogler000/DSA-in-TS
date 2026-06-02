@@ -1,3 +1,5 @@
+import { get } from "node:http";
+
 // Q1: Given an integer N, return the number of digits in N.
 function countDigits( n:number=12345 ):number { // Brute-Force Approach [TC == O(log10(n)), cuz log10(n) is equals to count of digits in n === no. of ops. in this approach && SC == O(1)]
     let count = 0, lastDigit:number;
@@ -116,4 +118,20 @@ function isArmstrong(n:number=153):boolean { // Brute-Force Approach [ TC == O(l
     return (sum === n);
 }
 
-console.log(isArmstrong(371));
+
+
+
+// Q6: Given an integer N, return all divisors of N.
+function getAllDivisors(n:number=36):number[] { // Brute-Force Approach [ TC == O(n) && SC == O(n), due to result[] ]
+    let divisor = 1, result:number[] = [];
+
+    while (divisor <= n) {
+        if (n % divisor === 0) {
+            result.push(divisor);
+        }
+        divisor++;
+    }
+
+    return result;
+}
+console.log(getAllDivisors(12));
