@@ -98,4 +98,22 @@ function GCD3(n1:number, n2:number):number { // Best Approach (Euclidean Algo.) 
 
     return (n1 === 0 ? n2 : n1);
 }
-console.log(GCD3(20,15));
+
+
+
+
+// Q5: Given an integer N, return true it is an Armstrong number otherwise return false.
+// An Armstrong number is a number that is equal to the sum of its own digits each raised to the power of the number of digits.
+function isArmstrong(n:number=153):boolean { // Brute-Force Approach [ TC == O(log10(n)) && SC == O(1) ]
+    let dupNum = n, lastDigit:number, sum = 0, digitsCount = Math.floor(Math.log10(n) + 1);
+
+    while (dupNum > 0) {
+        lastDigit = dupNum%10;
+        sum += Math.pow(lastDigit, digitsCount);
+        dupNum = Math.floor(dupNum/10);
+    }
+
+    return (sum === n);
+}
+
+console.log(isArmstrong(371));
