@@ -150,4 +150,21 @@ function getAllDivisors2(n:number=36):number[] {
 
     return result;
 }
-console.log(getAllDivisors2(58));
+
+// Optimal Approach (all unique divisors of n <= 2*sqrt(n), and the remaining divisors we can find by calculating)
+// [ TC == O(sqrt(n)) && SC == O(sqrt(n)) ]
+function getAllDivisors3(n:number=36):number[] {
+    let result:number[] = [];
+
+    for(let i=1; i<=Math.sqrt(n); i++) {
+        if (n % i === 0) { //divisor found
+            result.push(i); // divisor added  
+
+            if (i !== (n/i)) // condition to prevent adding duplicated of those divisors whose square == n 
+                result.push(n/i); // matching divisor added
+        }
+    }
+
+    return result;
+}
+console.log(getAllDivisors3(12));
