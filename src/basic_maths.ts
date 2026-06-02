@@ -84,4 +84,18 @@ function GCD2(n1:number, n2:number):number { // Better Approach [TC == O(min(n1,
 
     return gcd;
 }
-console.log(GCD2(9,12));
+
+function GCD3(n1:number, n2:number):number { // Best Approach (Euclidean Algo.) [TC == O(min(n1,n2)) && SC == O(1) ] 
+    
+    while (n1 > 0 && n2 > 0) {
+        if (n1 > n2) { // n1 greater
+            n1 %= n2;
+        }
+        else { // n2 greater or equal to n1
+            n2 %= n1;
+        }
+    }
+
+    return (n1 === 0 ? n2 : n1);
+}
+console.log(GCD3(20,15));
