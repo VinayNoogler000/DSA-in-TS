@@ -182,4 +182,15 @@ function isPrime(n:number=10): boolean { // Brute-Force approach - [TC O(n) && S
     
     return true;
 }
-console.log(isPrime(2));
+
+function isPrime2(n:number=10): boolean { // Optimal approach - [TC O(sqrt(n)) && SC 0(1)], cuz the unique factors/divisors is always in range 1 to sqrt(n), after that the factors are just repeated.
+    let divisor = 2;
+
+    while (divisor <= Math.sqrt(n)) {
+        if (n % divisor === 0) return false;
+        divisor++;
+    }
+
+    return true;
+}
+console.log(isPrime2(1483));
