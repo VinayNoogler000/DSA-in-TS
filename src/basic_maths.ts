@@ -134,4 +134,20 @@ function getAllDivisors(n:number=36):number[] { // Brute-Force Approach [ TC == 
 
     return result;
 }
-console.log(getAllDivisors(12));
+
+// Better Approach (all divisors of n <= n/2) [ TC == O(n/2) && SC == O(sqrt(n)), cuz that no. of divisors is 
+// stored by the result[] ]
+function getAllDivisors2(n:number=36):number[] { 
+    let divisor = 1, result:number[] = [];
+
+    while (divisor <= n/2) {
+        if (n % divisor === 0) {
+            result.push(divisor);
+        }
+        divisor++;
+    }
+    result.push(n);
+
+    return result;
+}
+console.log(getAllDivisors2(58));
