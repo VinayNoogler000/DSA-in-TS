@@ -37,6 +37,7 @@ export default class BasicRecursion {
 
 
 
+
     // Problem 3: Given an integer N, write a program to print numbers from N to 1.
     // Using Forward Recursion - Both TC & SC == O(n)
     public static printNumsFromNto1(n:number=5): void { 
@@ -53,11 +54,50 @@ export default class BasicRecursion {
         BasicRecursion.printNumsFromNto1_BT(n, count+1);
         process.stdout.write(count + ' ');
     }
+
+
+
+    
+    // Problem 4:  Given a number ‘N’, find out the sum of the first N natural numbers .
+    
+    // Recursive Approach - Both TC & SC == O(n)
+    public static sumOfNumsFrom1toN_BT(n:number): number { // (Backward Recursion or Backtracking) 
+        if (n === 1) {
+            return 1; // sum
+        }
+
+        return n + BasicRecursion.sumOfNumsFrom1toN_BT(n-1);
+    }
+
+    public static sumOfNumsFrom1toN_FR(n:number, sum:number=0): number { // (Forward Recursion)
+        if (n < 1) return sum;
+
+        sum += n;
+        return BasicRecursion.sumOfNumsFrom1toN_FR(n-1, sum);
+    }
+
+    // Brute-Force Approach using Loop [ TC = O(n) && SC = O(1) ]
+    public static sumOfNumsFrom1toN_Loop(n:number): number {
+        let sum = 0;
+        for (let i=1; i<=n; i++) {
+            sum += i;
+        }
+        return sum;
+    }
+
+    // Optimal Approach using Formula [ Both TC && SC == O(1) ]
+    public static sumOfNumsFrom1toN_Formula(n:number): number {
+        return n * (n + 1) / 2;
+    }
 }
 
 // BasicRecursion.printNameNthTimes("Vinay", 5);
 // BasicRecursion.printNumsFromOneTillN();
 // BasicRecursion.printNumsFromOneTillN_BT();
-BasicRecursion.printNumsFromNto1(8); 
-console.log();
-BasicRecursion.printNumsFromNto1_BT(8);
+// BasicRecursion.printNumsFromNto1(8); 
+// console.log();
+// BasicRecursion.printNumsFromNto1_BT(8);
+console.log(BasicRecursion.sumOfNumsFrom1toN_BT(9));
+console.log(BasicRecursion.sumOfNumsFrom1toN_FR(9));
+console.log(BasicRecursion.sumOfNumsFrom1toN_Loop(9));
+console.log(BasicRecursion.sumOfNumsFrom1toN_Formula(9));
