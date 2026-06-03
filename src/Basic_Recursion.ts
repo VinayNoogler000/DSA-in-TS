@@ -112,6 +112,47 @@ export default class BasicRecursion {
 
         return n * BasicRecursion.factorial_BT(n-1);
     }
+
+
+
+
+    // Problem 6: You are given an array. The task is to reverse the array and print it.
+    
+    // Brute-Force Approach (looping) - [ TC = O(n) && SC = O(n) ]
+    public static reverseArr_Loop(arr:number[]): number[] {
+        let n = arr.length, reverseArr:number[] = [];
+        
+        for (let i=n-1, j=0; i>=0 && j<n; i--, j++){
+            const val = arr[i];
+
+            if (val !== undefined ) {
+                reverseArr[j] = val;
+            }
+        }    
+
+        return reverseArr;
+    }
+
+    // Better Approach (Two Pointer) - [ TC = O(n/2 or n, cuz 2 is constant) && SC = O(1) ]
+    public static reverseArr_Pointers(arr:number[]): number[] {
+        let start = 0, end = arr.length-1, temp:number;
+
+        while (start < end) { // O(n/2)
+            temp = arr[start]!;
+            arr[start] = arr[end]!;
+            arr[end] = temp;
+
+            start++;
+            end--;
+        }
+
+        return arr;
+    }
+
+    // Using Built-In Libraries - [ TC = O(n) && SC = O(1) ]
+    public static reverseArr_Builtin(arr:number[]): number[] {
+        return arr.reverse();
+    }
 }
 
 // BasicRecursion.printNameNthTimes("Vinay", 5);
@@ -124,5 +165,8 @@ export default class BasicRecursion {
 // console.log(BasicRecursion.sumOfNumsFrom1toN_FR(9));
 // console.log(BasicRecursion.sumOfNumsFrom1toN_Loop(9));
 // console.log(BasicRecursion.sumOfNumsFrom1toN_Formula(9));
-BasicRecursion.factorial(3);
-console.log("\n" + BasicRecursion.factorial_BT(3));
+// BasicRecursion.factorial(3);
+// console.log("\n" + BasicRecursion.factorial_BT(3));
+console.log(BasicRecursion.reverseArr_Loop([1, 2, 3, 4, 5]));
+console.log(BasicRecursion.reverseArr_Pointers([1, 2, 3, 4, 5]));
+console.log(BasicRecursion.reverseArr_Builtin([1, 2, 3, 4, 5]));
