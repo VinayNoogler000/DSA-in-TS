@@ -34,8 +34,30 @@ export default class BasicRecursion {
         BasicRecursion.printNumsFromOneTillN_BT(n-1);
         process.stdout.write(n + ' ');
     }
+
+
+
+    // Problem 3: Given an integer N, write a program to print numbers from N to 1.
+    // Using Forward Recursion - Both TC & SC == O(n)
+    public static printNumsFromNto1(n:number=5): void { 
+        if (n < 1 ) return;
+        
+        process.stdout.write(n + ' ');
+        BasicRecursion.printNumsFromNto1(n-1);
+    }
+
+    // Using Backtracking - Both TC & SC == O(n)
+    public static printNumsFromNto1_BT(n:number=5, count:number=1): void { 
+        if (count > n ) return;
+        
+        BasicRecursion.printNumsFromNto1_BT(n, count+1);
+        process.stdout.write(count + ' ');
+    }
 }
 
 // BasicRecursion.printNameNthTimes("Vinay", 5);
 // BasicRecursion.printNumsFromOneTillN();
-BasicRecursion.printNumsFromOneTillN_BT();
+// BasicRecursion.printNumsFromOneTillN_BT();
+BasicRecursion.printNumsFromNto1(8); 
+console.log();
+BasicRecursion.printNumsFromNto1_BT(8);
