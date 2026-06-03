@@ -89,6 +89,29 @@ export default class BasicRecursion {
     public static sumOfNumsFrom1toN_Formula(n:number): number {
         return n * (n + 1) / 2;
     }
+
+
+
+
+    // Problem 5: Given a number N, print its factorial.
+
+    // Brute-Force Approach (looping) - [ TC = O(n) && SC = O(1) ]
+    public static factorial(n:number=5) {
+        let factorial = 1;
+
+        for (let i=2; i<=n; i++) {
+            factorial *= i;
+        }
+
+        process.stdout.write(factorial + '');
+    }
+
+    // Recursive Solution (Backtracking) - [ TC & SC = O(n) ]
+    public static factorial_BT(n:number=5): number {
+        if (n === 0) return 1; // Factorial of 0 is 1
+
+        return n * BasicRecursion.factorial_BT(n-1);
+    }
 }
 
 // BasicRecursion.printNameNthTimes("Vinay", 5);
@@ -97,7 +120,9 @@ export default class BasicRecursion {
 // BasicRecursion.printNumsFromNto1(8); 
 // console.log();
 // BasicRecursion.printNumsFromNto1_BT(8);
-console.log(BasicRecursion.sumOfNumsFrom1toN_BT(9));
-console.log(BasicRecursion.sumOfNumsFrom1toN_FR(9));
-console.log(BasicRecursion.sumOfNumsFrom1toN_Loop(9));
-console.log(BasicRecursion.sumOfNumsFrom1toN_Formula(9));
+// console.log(BasicRecursion.sumOfNumsFrom1toN_BT(9));
+// console.log(BasicRecursion.sumOfNumsFrom1toN_FR(9));
+// console.log(BasicRecursion.sumOfNumsFrom1toN_Loop(9));
+// console.log(BasicRecursion.sumOfNumsFrom1toN_Formula(9));
+BasicRecursion.factorial(3);
+console.log("\n" + BasicRecursion.factorial_BT(3));
