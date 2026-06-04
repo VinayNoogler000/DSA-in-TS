@@ -202,6 +202,64 @@ export default class BasicRecursion {
 
         return BasicRecursion.isPalindrome_R(str, start+1, end-1);
     }
+
+
+
+
+    // Problem 7: Given an integer N. Print the Fibonacci series up to the Nth term.
+    
+    // Brute Force Approach - [ TC = O(n) && SC = O(n) ]
+    public static Fibonacci(n:number): number {
+        if (n === 0) return 0;
+        else if (n === 1) return 1;
+
+        // Instructions for N > 1
+        let fib:number[] = new Array<number>(n+1).fill(0); // Fibonacci;
+        fib[0] = 0; fib[1] = 1;
+
+        for (let i=2; i<=n; i++) {
+            fib[i] = fib[i-1]! + fib[i-2]!;
+        }
+
+        return fib[n]!;
+    }
+
+    // Better Approach - [ TC = O(n) && SC = O(1) ]
+    public static Fibonacci2(n:number): number {
+        if (n === 0) return 0;
+        else if (n === 1) return 1;
+
+        // Instructions for N > 1
+        let last: number = 1, secondLast: number = 0, fibOfI:number = 0;
+
+        for (let i = 2; i <= n; i++) {
+            fibOfI = last + secondLast;
+            secondLast = last;
+            last = fibOfI;
+        }
+
+        return fibOfI;
+    }
+
+    // Recursive Approach - [ TC = O(2^n) && SC = O(n) ] - NOT RECOMMENDED
+    public static Fibonacci3(n:number): number {
+        if (n <= 1) return n;
+
+        return BasicRecursion.Fibonacci3(n-1) + BasicRecursion.Fibonacci3(n-2);
+    }
+
+    // Optimal Approach (Using Recursion & Map)
+    public static Fibonacci4(n:number): number {
+        if (n <= 1) return n;
+
+        if (n > 1 && cache.has(n)) return cache.get(n)!;
+
+        const fibonacci = this.Fibonacci4(n-1) + this.Fibonacci4(n-2)
+
+        cache.set(n, fibonacci);
+
+        return fibonacci;
+    }
 }
 
 // BasicRecursion.printNameNthTimes("Vinay", 5);
@@ -219,6 +277,8 @@ export default class BasicRecursion {
 // console.log(BasicRecursion.reverseArr_Loop([1, 2, 3, 4, 5]));
 // console.log(BasicRecursion.reverseArr_Pointers([1, 2, 3, 4, 5]));
 // console.log(BasicRecursion.reverseArr_Builtin([1, 2, 3, 4, 5]));
-BasicRecursion.isPalindrome("TAKE U FORWARD");
-BasicRecursion.isPalindrome_TP("TAKE U FORWARD");
-BasicRecursion.isPalindrome_R("TAKE U FORWARD");
+// BasicRecursion.isPalindrome("TAKE U FORWARD");
+// BasicRecursion.isPalindrome_TP("TAKE U FORWARD");
+// BasicRecursion.isPalindrome_R("TAKE U FORWARD");
+const cache = new Map<number, number>();
+console.log(BasicRecursion.Fibonacci4(10000));
