@@ -224,7 +224,7 @@ export default class BasicRecursion {
         return fib[n]!;
     }
 
-    // Better Approach - [ TC = O(n) && SC = O(1) ]
+    // Optimal Approach - [ TC = O(n) && SC = O(1) ]
     public static Fibonacci2(n:number): number {
         if (n === 0) return 0;
         else if (n === 1) return 1;
@@ -248,7 +248,7 @@ export default class BasicRecursion {
         return BasicRecursion.Fibonacci3(n-1) + BasicRecursion.Fibonacci3(n-2);
     }
 
-    // Optimal Approach (Using Recursion & Map)
+    // Better Approach (Using Recursion & Map) - [ TC & SC = O(n)]
     public static Fibonacci4(n:number): number {
         if (n <= 1) return n;
 
