@@ -153,6 +153,55 @@ export default class BasicRecursion {
     public static reverseArr_Builtin(arr:number[]): number[] {
         return arr.reverse();
     }
+
+
+
+
+    // Problem 7: Given a string, check if the string is palindrome or not. A string is said to be palindrome if the reverse of the string is the same as the string.
+
+    // Brute-Force Approach (looping) - [ TC = O(n) && SC = O(n) ]
+    public static isPalindrome(str: string="ABCcba"): void{
+        let reverse:string = "";
+        for (let i=str.length-1; i>=0; i--) {
+            reverse += str.charAt(i);
+        }
+
+        if (reverse.toLowerCase() === str.toLowerCase()) console.log("String is a Palindrome");
+        else console.log("String is NOT a Palindrome");
+    }
+
+    // Better Approach (Two Pointers) - [ TC = O(n) && SC = O(1) ]
+    public static isPalindrome_TP(str: string="ABCcba"): void {
+        let start = 0, end = str.length-1;
+
+        while (start < end) {
+            if (str[start]!.toLowerCase() !== str[end]!.toLowerCase() ) {
+                console.log("String is NOT a Palindrome");
+                break;
+            }
+
+            start++; end--;
+        }
+
+        if (start >= end) {
+            console.log("String is a Palindrome");
+        }
+    }
+
+    // Another Approach (Recursion) - [ TC = O(n) && SC = (n) ]
+    public static isPalindrome_R(str:string="ABCcba", start:number=0, end:number=str.length-1): boolean {
+        if (str.length === 1 || (start >= end) ) {
+            console.log("String is a Palindrome");
+            return true;
+        }
+        
+        if (str[start]?.toLowerCase() !== str[end]?.toLowerCase() ) {
+            console.log("String is NOT a Palindrome");
+            return false;
+        }
+
+        return BasicRecursion.isPalindrome_R(str, start+1, end-1);
+    }
 }
 
 // BasicRecursion.printNameNthTimes("Vinay", 5);
@@ -167,6 +216,9 @@ export default class BasicRecursion {
 // console.log(BasicRecursion.sumOfNumsFrom1toN_Formula(9));
 // BasicRecursion.factorial(3);
 // console.log("\n" + BasicRecursion.factorial_BT(3));
-console.log(BasicRecursion.reverseArr_Loop([1, 2, 3, 4, 5]));
-console.log(BasicRecursion.reverseArr_Pointers([1, 2, 3, 4, 5]));
-console.log(BasicRecursion.reverseArr_Builtin([1, 2, 3, 4, 5]));
+// console.log(BasicRecursion.reverseArr_Loop([1, 2, 3, 4, 5]));
+// console.log(BasicRecursion.reverseArr_Pointers([1, 2, 3, 4, 5]));
+// console.log(BasicRecursion.reverseArr_Builtin([1, 2, 3, 4, 5]));
+BasicRecursion.isPalindrome("TAKE U FORWARD");
+BasicRecursion.isPalindrome_TP("TAKE U FORWARD");
+BasicRecursion.isPalindrome_R("TAKE U FORWARD");
