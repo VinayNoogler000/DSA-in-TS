@@ -39,10 +39,10 @@ function getMaxLengthOfString(str:string): number {
     const isStrHasLowerChars = isStringHasLowerCase(str); // a to z
     const isStrHasUpperChars = isStringHasUpperCase(str); // A to Z
     const isStrHasNumChars = isStringHasNums(str); // 0 - 9
-    const isStrHasSymbolicChars = isStringHasSymbols(str); // All Symbols (Printable & Non-Printable Chars)
+    const isStrHasSymbolicChars = isStringHasSymbols(str); // All Basic Symbols, Control Characters (non-printable), and 128 extra chars for special symbols, math operators, and accented foreign chars
 
     if ( isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars && isStrHasSymbolicChars) {
-        return 128;
+        return 256;
     }
     else if (isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars) {
         return 62;
