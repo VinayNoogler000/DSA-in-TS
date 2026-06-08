@@ -1,4 +1,8 @@
 function isStringHasLowerCase(str:string):boolean {
+    if ( /[^a-z]/g.test(str) ) { // if chars are not in range a-z
+        return false;
+    }
+    
     for (let ch of str) {
         if (ch === ch.toLowerCase()) return true;
     }
@@ -7,6 +11,11 @@ function isStringHasLowerCase(str:string):boolean {
 }
 
 function isStringHasUpperCase(str:string):boolean {
+    if ( /[^A-Z]/g.test(str) ) { // if chars are not in range A-Z
+        return false;
+    }
+    
+    
     for (let ch of str) {
         if (ch === ch.toUpperCase()) return true;
     }
