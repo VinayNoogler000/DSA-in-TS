@@ -1,23 +1,14 @@
 function isStringHasLowerCase(str:string):boolean {
-    if ( /[^a-z]/g.test(str) ) { // if chars are not in range a-z
-        return false;
-    }
-    
     for (let ch of str) {
-        if (ch === ch.toLowerCase()) return true;
+        if ( /[a-z]/g.test(ch) ) return true;
     }
 
     return false;
 }
 
 function isStringHasUpperCase(str:string):boolean {
-    if ( /[^A-Z]/g.test(str) ) { // if chars are not in range A-Z
-        return false;
-    }
-    
-    
     for (let ch of str) {
-        if (ch === ch.toUpperCase()) return true;
+        if ( /[A-Z]/g.test(ch) ) return true;
     }
 
     return false;
@@ -50,26 +41,55 @@ function getMaxLengthOfString(str:string): number {
     const isStrHasNumChars = isStringHasNums(str); // 0 - 9
     const isStrHasSymbolicChars = isStringHasSymbols(str); // All Basic Symbols, Control Characters (non-printable), and 128 extra chars for special symbols, math operators, and accented foreign chars
 
-    if ( isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars && isStrHasSymbolicChars) {
-        return 256;
+    // All 16 possible combinations of 4 character types:
+    if (isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars && isStrHasSymbolicChars) {
+        return 256; // 26 + 26 + 10 + 128 (or 256 for extended ASCII)
     }
-    else if (isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars) {
-        return 62;
+    else if (isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 62; // 26 + 26 + 10
     }
-    else if (isStrHasLowerChars && isStrHasUpperChars) {
-        return 52;
+    else if (isStrHasLowerChars && isStrHasUpperChars && !isStrHasNumChars && isStrHasSymbolicChars) {
+        return 78; // 26 + 26 + 128 (approx)
     }
-    else if (isStrHasLowerChars || isStrHasUpperChars) {
-        return 26;
+    else if (isStrHasLowerChars && isStrHasUpperChars && !isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 52; // 26 + 26
     }
-    else if (isStrHasNumChars) {
-        return 10;
+    else if (isStrHasLowerChars && !isStrHasUpperChars && isStrHasNumChars && isStrHasSymbolicChars) {
+        return 164; // 26 + 10 + 128 (approx)
     }
-    else if (isStrHasSymbolicChars) {
-        return 64;
+    else if (isStrHasLowerChars && !isStrHasUpperChars && isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 36; // 26 + 10
     }
-
-    return 0;
+    else if (isStrHasLowerChars && !isStrHasUpperChars && !isStrHasNumChars && isStrHasSymbolicChars) {
+        return 154; // 26 + 128 (approx)
+    }
+    else if (isStrHasLowerChars && !isStrHasUpperChars && !isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 26; // only lowercase
+    }
+    else if (!isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars && isStrHasSymbolicChars) {
+        return 164; // 26 + 10 + 128 (approx)
+    }
+    else if (!isStrHasLowerChars && isStrHasUpperChars && isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 36; // 26 + 10
+    }
+    else if (!isStrHasLowerChars && isStrHasUpperChars && !isStrHasNumChars && isStrHasSymbolicChars) {
+        return 154; // 26 + 128 (approx)
+    }
+    else if (!isStrHasLowerChars && isStrHasUpperChars && !isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 26; // only uppercase
+    }
+    else if (!isStrHasLowerChars && !isStrHasUpperChars && isStrHasNumChars && isStrHasSymbolicChars) {
+        return 138; // 10 + 128 (approx)
+    }
+    else if (!isStrHasLowerChars && !isStrHasUpperChars && isStrHasNumChars && !isStrHasSymbolicChars) {
+        return 10; // only numbers
+    }
+    else if (!isStrHasLowerChars && !isStrHasUpperChars && !isStrHasNumChars && isStrHasSymbolicChars) {
+        return 128; // only symbols
+    }
+    else {
+        return 0; // empty string or no valid characters
+    }
 }
 
 export {
