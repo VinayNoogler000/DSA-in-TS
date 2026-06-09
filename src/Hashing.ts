@@ -108,7 +108,6 @@ function findCountOfCharInString2(str:string="abcdabefcBCBD900%@**", queries:str
     }
 }
 
-
 // Best Approach (Using MAPS) --> TC = O(max(N,Q)) & SC = O(max(D)), where 'D' is the maximum unique chars in string, 'cause Map will store only unique chars, without any extra characters, unlike Array-Hashing (means, better SC than Arrays)
 function findCountOfCharInString3(str:string="abcdabefcBCBD900%@**", queries:string[]=['a', 'c', 'z', 'B', 'D', '1', '0', '&', '*']): void {
     const charCount = new Map<string, number>(); // total size of map for default str is just 14, whereas the size of array in optimal approach for the same input is 256, which is more than 18 times the size of this Map.
@@ -128,5 +127,55 @@ function findCountOfCharInString3(str:string="abcdabefcBCBD900%@**", queries:str
         process.stdout.write( ( charCount.get(q) || 0 ) + " " );
     }
 }
-findCountOfNumsInArr3();
-findCountOfCharInString3();
+
+
+
+
+// Problem 3: Given an array, we have to found the number of occurrences of each element in the array.
+
+// Brute-Force Approach - TC O(n*n) & SC O(n)
+function countOccurencesOfNumsInArr(nums:number[]=[10, 5, 10, 15, 10, 5], n=nums.length):void {
+    const visited = new Array<boolean>(n).fill(false);
+    let count:number;
+
+    for (let i=0; i<n; i++) {
+        if (visited[i]) continue;
+        count = 1;
+        
+        for (let j=i+1; j<n; j++) {
+            if (nums[i] === nums[j]) { // matched
+                count++;
+                visited[j] = true;
+            }
+        }
+        visited[i] = true;
+        console.log(nums[i], ": ", count);
+    }
+}
+
+// Optimal Approach (using Maps) - TC O(n) & SC O(d), where 'd' is total count of distinct numbers in nums[], 'cause Map will store only unique numbers as keys.
+function countOccurencesOfNumsInArr2(nums:number[]=[10, 5, 10, 15, 10, 5], n=nums.length):void {
+    if (nums.length === 0) return;
+    
+    const visitedMap = new Map<number, number>();
+    let freq:number;
+
+    // for (let i=0; i<n; i++) { // Pre-Storing
+    //     const curr = nums[i]!;
+    //     if ( visitedMap.has(curr) ) freq = visitedMap.get(curr)!;
+    //     else freq = 0;
+    //     visitedMap.set(curr, ++freq);
+    // }
+    
+    // for (const [num, count] of visitedMap) { // Fetching
+    //     console.log(num, ": ", count);
+    // }
+
+    // Lesser Code Version
+    for (let i=0; i<n; i++) { // Pre-Storing
+        visitedMap.set(nums[i]!, (visitedMap.get(nums[i]!) || 0) + 1);
+    }
+
+    visitedMap.forEach((value, key) => console.log(key, ": ", value)); // Fetching
+}
+countOccurencesOfNumsInArr2([2, 2, 3, 4, 4, 2]);
