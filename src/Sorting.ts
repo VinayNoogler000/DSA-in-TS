@@ -1,4 +1,5 @@
 // Selection Sorting - TC O(n*n)
+// It selects the Minimum num and swaps it with the 1st num in the Unsorted Array
 export function selectionSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):number[] {
     let min:number, temp:number;
     
@@ -23,4 +24,31 @@ export function selectionSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):n
 
     return nums;
 }
-process.stdout.write(selectionSort([5,4,3,2,1]) + " ");
+
+// Bubble Sorting - TC O(2N) & SC O(1) for best and worst cases (if ignoring 48th line)
+// Takes the Maximum num and pushes it to the last, by swapping last num of unsorted array with max num
+export function bubbleSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):number[] {
+    let temp:number, isSwapped = false;
+
+    // Loop from End to Beginning of Nums[]
+    for (let i=n-1; i>=0; i--) {
+
+        // Iterate the Unsorted Part of Nums[] from j to i-1
+        for (let j=0; j<i; j++) {
+
+            // Do adjacent swaps, if nums[j] is greater than nums[j+1]
+            if (nums[j]! > nums[j+1]!) {
+                temp = nums[j]!;
+                nums[j] = nums[j+1]!;
+                nums[j+1] = temp;
+                isSwapped = true;
+            }
+        }
+
+        if (!isSwapped) break; // this line comes in Optimal Approach, making TC O(2N) for worst & 
+        // avg cases, and O(N) for the best case (when nums[] is already sorted)
+    }
+    
+    return nums;
+}
+process.stdout.write(bubbleSort() + '');
