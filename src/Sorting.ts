@@ -44,7 +44,8 @@ export function bubbleSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):numb
                 isSwapped = true;
             }
         }
-
+        
+        // Break from the loops, if the nums[] is already sorted (represented by "isSwapped = false")
         if (!isSwapped) break; // this line comes in Optimal Approach, making TC O(2N) for worst & 
         // avg cases, and O(N) for the best case (when nums[] is already sorted)
     }
