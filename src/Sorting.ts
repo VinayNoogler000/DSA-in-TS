@@ -26,7 +26,7 @@ export function selectionSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):n
 }
 
 // Bubble Sorting - TC O(2N) & SC O(1) for best and worst cases (if ignoring 48th line)
-// Takes the Maximum num and pushes it to the last, by swapping last num of unsorted array with max num
+// Takes the Maximum num and pushes it to the last, by performing adjacent swaps
 export function bubbleSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):number[] {
     let temp:number, isSwapped = false;
 
