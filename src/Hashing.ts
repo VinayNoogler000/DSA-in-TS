@@ -178,4 +178,75 @@ function countOccurencesOfNumsInArr2(nums:number[]=[10, 5, 10, 15, 10, 5], n=num
 
     visitedMap.forEach((value, key) => console.log(key, ": ", value)); // Fetching
 }
-countOccurencesOfNumsInArr2([2, 2, 3, 4, 4, 2]);
+
+
+
+
+// Problem 4: Given an array of size N. Find the highest and lowest frequency element.
+
+// Brute-Force Approach - TC O(n*n) & SC O(n)
+function findHighestNLowestFrequencyNum(nums:number[]=[10, 5, 10, 15, 10, 5], n=nums.length):void {
+    const visited = new Array<boolean>(n).fill(false);
+    let currEl:number, count:number, max = [0, 0], min = [0, Infinity]; // In max & min arrays, 0th index 
+                                                        // stores element, and 1st index stores it's count  
+
+    // Loop to Get Frequencies of Num, and Find & Print Max & Min Frequency Num
+    for (let i=0; i<n; i++) { 
+        if (visited[i]) continue;
+        else {
+            currEl = nums[i]!;
+            count = 1;
+            visited[i] = true;
+
+            for (let j=i+1; j<n; j++) {
+                if (currEl === nums[j]) { // matched
+                    count++;
+                    visited[j] = true;
+                }
+            }
+            
+            // Update Max Frequency Element
+            if (count > max[1]!) {
+                max[0] = currEl;
+                max[1] = count;
+            }
+
+            // Update Min Frequency Element
+            if (count < min[1]!) {
+                min[0] = currEl;
+                min[1] = count;
+            }
+        }
+    }
+
+    console.log("The highest frequency element is: ", max[0], ": ",  max[1]);
+    console.log("The lowest frequency element is: ", min[0], ": ",  min[1]);
+}
+
+// Optimal Approach (using Maps) - TC O(n) & SC O(d), where 'd' is total count of distinct numbers in nums[], 'cause Map will store only unique numbers as keys.
+function findHighestNLowestFrequencyNum2(nums:number[]=[10, 5, 10, 15, 10, 5], n=nums.length):void {
+    if (nums.length === 0) return;
+    
+    const visitedMap = new Map<number, number>();
+    const min = [0, Infinity], max = [0, 0];    
+
+    for (let i=0; i<n; i++) { // Pre-Storing
+        visitedMap.set(nums[i]!, (visitedMap.get(nums[i]!) || 0) + 1);
+    }
+
+    visitedMap.forEach((value, key) => { // Fetching
+        if (value > max[1]!) {
+            max[0] = key;
+            max[1] = value;
+        }
+
+        if (value < min[1]!) {
+            min[0] = key;
+            min[1] = value;
+        }
+    });
+
+    console.log("The highest frequency element is: ", max[0], ": ",  max[1]);
+    console.log("The lowest frequency element is: ", min[0], ": ",  min[1]);
+}
+findHighestNLowestFrequencyNum2([2,2,3,4,4,2]);
