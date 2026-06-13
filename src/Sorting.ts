@@ -25,6 +25,9 @@ export function selectionSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):n
     return nums;
 }
 
+
+
+
 // Bubble Sorting - TC O(N*N) & SC O(1) for worst, avg & best cases (if ignoring 48th line)
 // Takes the Maximum num and pushes it to the last, by performing adjacent swaps
 export function bubbleSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):number[] {
@@ -53,4 +56,32 @@ export function bubbleSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):numb
     
     return nums;
 }
-process.stdout.write(bubbleSort() + '');
+
+
+
+
+// Insertion Sorting - TC O(N*N) for worst & avg cases, and O(N) for best cases (sorted array) & SC O(1) 
+// Takes an Element and place/insert it in the correct position
+export function insertionSort(nums=[13,46,24,52,20,9], n=nums.length):number[] {
+    for (let i=1; i<n; i++) { // iterate and select every element in the nums[]
+        const key = nums[i]!;
+        
+        // find out whether the nums from 0 to i-1 is in right order or not. If not (2nd condition in loop), then break loop
+        let j = i-1;
+        while (j>=0 && nums[j]! > key) { 
+            nums[j+1] = nums[j]!; // shift element to right by 1, because wrong order of jth val and key
+            j--;
+        }
+
+        //Or - Another Approach, but Same TC
+        // while (j>0 && nums[j-1]! > nums[j]!) { 
+        //     swap(nums[j-1], nums[j]);
+        //     j--;
+        // }
+
+        nums[j+1] = key; // place the key at the correct position
+    }
+
+    return nums;
+}
+process.stdout.write(insertionSort([5, 4, 3, 4]) + '');
