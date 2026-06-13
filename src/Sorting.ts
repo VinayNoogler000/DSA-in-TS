@@ -88,4 +88,52 @@ export function insertionSort(nums=[13,46,24,52,20,9], n=nums.length):number[] {
 
     return nums;
 }
-process.stdout.write(insertionSort([1, 2, 3, 4, 5]) + '');
+
+
+
+
+// Merge Sorting - TC O(N*logN) where 'logN' is for no. of times the array is divided into halves and 'N' is for loops to merge the array, && SC O(N) for result[], ignoring recursive calls getting stored in call stack because it's SC is 'logN'
+// Approach is Divide array into Two Halves and Merge them in sorted form
+export function mergeSort(nums=[13,46,24,52,20,9], startIdx:number=0, endIdx:number=nums.length-1):void {
+    if (nums.length <= 1 || startIdx >= endIdx) { // Base Case, where there will be 1 or less element in array
+        return;
+    }
+
+    // Divide the Array to Easily Sort them - O(logN) 
+    const mid = Math.floor( (startIdx + endIdx) / 2 );
+    mergeSort(nums, startIdx, mid);
+    mergeSort(nums, mid+1, endIdx);
+
+    // Merge the Sorted Array - O(N)
+    let i = startIdx, j = mid+1; // iterators of 1st half, & 2nd half, respectively
+    const result = new Array<number>();
+
+    while (i <= mid && j <= endIdx) { // iterate both halves, compare elements and merge
+        if (nums[i]! <= nums[j]!) {
+            result.push(nums[i++]!);
+        }
+        else {
+            result.push(nums[j++]!);
+        }
+    }
+
+    while (i <= mid) { // if first half iteration isn't completed, then put all it's remaining elements in the result arr, without changing the order
+        result.push(nums[i++]!);
+    }
+
+    while(j <= endIdx) { // if second half iteration isn't completed, put all it's remaining elements in the result arr, without changing the order
+        result.push(nums[j++]!);
+    }
+
+    // Update the Original Array from start to end indices
+    for (i=startIdx; i<=endIdx; i++) {
+        nums[i] = result[i - startIdx]!; // cuz, result[] starts counting from 0, whereas nums[] starts from startIdx, so to offset the value we use expression 'i - startIdx'
+    }
+
+
+    if (result.length === nums.length) process.stdout.write(nums.join(", ") + "\n");
+} 
+
+// const arr = [5, 4, 3, 2, 1];
+mergeSort();
+// console.log(arr);
