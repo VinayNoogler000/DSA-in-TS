@@ -1,4 +1,4 @@
-// Selection Sorting - TC O(n*n)
+// Selection Sorting - TC O(N*N) for worst, avg and best cases
 // It selects the Minimum num and swaps it with the 1st num in the Unsorted Array
 export function selectionSort(nums:number[]=[13,46,24,52,20,9], n=nums.length):number[] {
     let min:number, temp:number;
