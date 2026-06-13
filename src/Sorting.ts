@@ -72,16 +72,20 @@ export function insertionSort(nums=[13,46,24,52,20,9], n=nums.length):number[] {
             nums[j+1] = nums[j]!; // shift element to right by 1, because wrong order of jth val and key
             j--;
         }
+        nums[j+1] = key; // place the key at the correct position
 
-        //Or - Another Approach, but Same TC
+        //Or - Another Approach, but easier and same TC
+        // let j = i;
         // while (j>0 && nums[j-1]! > nums[j]!) { 
-        //     swap(nums[j-1], nums[j]);
+        //     // Swap
+        //     let temp = nums[j-1]!;
+        //     nums[j-1] = nums[j]!
+        //     nums[j] = temp;
+    
         //     j--;
         // }
-
-        nums[j+1] = key; // place the key at the correct position
     }
 
     return nums;
 }
-process.stdout.write(insertionSort([5, 4, 3, 4]) + '');
+process.stdout.write(insertionSort([1, 2, 3, 4, 5]) + '');
