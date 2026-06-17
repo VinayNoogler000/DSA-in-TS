@@ -186,6 +186,21 @@ export function recursiveSelectionSort(nums:number[], n=nums.length, rangeStartI
     recursiveSelectionSort(nums, n, rangeStartIdx+1);
 }
 
-const arr = [1, 2, 3, 0];
-recursiveSelectionSort(arr);
-process.stdout.write(arr + '');
+
+
+
+// Recursive Selection Sort
+  // Approach -> TC O(N*N) for worst, & avg, but O(N) in best case, and SC O(N), 'cause N times recursive function will be called and stored in Call Stack.
+export function recursiveInsertionSort(nums:number[], n=nums.length, i=1): void {
+    if (i === n) return; // base case hits
+
+    // Loop to unsorted range of nums[] from 0 to i (where i range from 1 to n-1)
+    for (let j=i; j>0 && (nums[j-1]! > nums[j]!); j--) {
+        [nums[j-1], nums[j]] = [nums[j]!, nums[j-1]!]; // swap values, 'cause incorrect order found
+    }
+
+    recursiveInsertionSort(nums, n, i+1);
+}
+const arr = [1, 2, 3, 4];
+recursiveInsertionSort(arr);
+process.stdout.write(arr+'');
