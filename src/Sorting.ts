@@ -164,6 +164,28 @@ export function recursiveBubbleSort(nums:number[], n:number=nums.length): void {
     recursiveBubbleSort(nums, n-1);
 }
 
-const arr = [4, 3, 2, 1];
-recursiveBubbleSort(arr);
-console.log(arr);
+
+
+
+// Recursive Selection Sort
+  // Approach -> TC O(N*N) for worst, avg & best cases, and SC O(N), 'cause N times recursive function will be called and stored in Call Stack.
+export function recursiveSelectionSort(nums:number[], n=nums.length, rangeStartIdx=0): void {
+    if (n <= 1 || rangeStartIdx >= n-1) return; // base case hits, when no. of numbers in nums[] is <= 1, or start index of range in nums[] is equal to last index of nums[], 'cause they're already sorted.
+
+    // Loop To Find the Minimum in Range [rangeStartIdx, n-1]
+    let min = rangeStartIdx;
+    for (let j=rangeStartIdx+1; j<n; j++) {
+        if (nums[j]! < nums[min]!) { // minimum found
+            min = j;
+        }
+    }
+
+    // Swap the minimum in range with the value at start index of range
+    [nums[min], nums[rangeStartIdx]] = [nums[rangeStartIdx]!, nums[min]!];
+
+    recursiveSelectionSort(nums, n, rangeStartIdx+1);
+}
+
+const arr = [1, 2, 3, 0];
+recursiveSelectionSort(arr);
+process.stdout.write(arr + '');
