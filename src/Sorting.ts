@@ -134,6 +134,36 @@ export function mergeSort(nums=[13,46,24,52,20,9], startIdx:number=0, endIdx:num
     if (result.length === nums.length) process.stdout.write(nums.join(", ") + "\n");
 } 
 
-// const arr = [5, 4, 3, 2, 1];
-mergeSort();
-// console.log(arr);
+
+
+
+// Recursive Bubble Sort
+  // Brute-Force & Optimal Approach -> TC O(N*N) for worst & avg cases (if exclude line 161), but O(N) for best case (sorted array) (if includes line 161), and SC O(N), 'cause N times recursive function will be called and stored in Call Stack.
+export function recursiveBubbleSort(nums:number[], n:number=nums.length): void {
+    if (n === 1) return;
+
+    let isSwapped = false, temp:number;
+    for (let j=0; j<n-1; j++) {
+        if (nums[j]! > nums[j+1]!) {
+            // temp = nums[j]!;
+            // nums[j] = nums[j+1]!;
+            // nums[j+1] = temp;
+
+            // swapping using destructuring
+            [nums[j], nums[j+1]] = [nums[j+1]!, nums[j]!];
+
+            isSwapped = true;
+        }
+    }
+
+    // Return, if the array [0,n-1] is already sorted in ascending order
+    if (!isSwapped) return;
+
+    console.log("runs");
+
+    recursiveBubbleSort(nums, n-1);
+}
+
+const arr = [4, 3, 2, 1];
+recursiveBubbleSort(arr);
+console.log(arr);
