@@ -201,6 +201,44 @@ export function recursiveInsertionSort(nums:number[], n=nums.length, i=1): void 
 
     recursiveInsertionSort(nums, n, i+1);
 }
-const arr = [1, 2, 3, 4];
-recursiveInsertionSort(arr);
+
+
+
+
+// Quick Sort (Pick a Pivot and place it at the correct position)
+// Divide & Conquer Approach -> TC O(N * logN) for best & avg case, where O(N) is taken by loop to find Partition Index, and O(log N) time is taken by division of array into two halves, but for worst cases the TC is O(N*N), & SC is O(N) 'cause recursive function is getting called and stored in Call Stack "N*2" times.
+export function quickSort(nums:number[], start=0, end=nums.length-1): void {
+    if (nums.length === 1 || start >= end) return;
+    
+    // Pick a Pivot which will be 1st Element of Every Array (but can be mid, last or any other random)
+    const pivot = nums[start]!;
+
+    // Place the pivot in its correct position the array and Find the Partition Index
+    let i = start, j = end;
+    while (i < j) { // TC O(n)
+
+        // Loop until found an ith element is greater than pivot
+        while (i < end && nums[i]! <= pivot) { // from start to end-1, 'cause j == end, which'll make unnecessary swapping
+            i++;
+        }
+
+        // Loop until found a jth element is smaller (or equals to) than pivot
+        while (j > start && nums[j]! > pivot) { // from end to start+1, 'cause i == start, which'll make unnecessary swapping
+            j--;
+        }
+
+        // Swap the greater (ith) and smaller (jth) elements with each other
+        if (i < j) [nums[j], nums[i]] = [nums[i]!, nums[j]!];
+    }
+    
+    // J is the Paritition Index, so Swap the Pivot with the jth index element
+    [ nums[j], nums[start] ] = [ pivot, nums[j]! ]; 
+
+    // Left of the pivot will consists of smaller & equals-to elements, whereas Right of pivot will consists of larger elements than Pivot - O(log N)
+    quickSort(nums, start, j-1);
+    quickSort(nums, j+1, end);
+}
+
+const arr = [4,6,2,5,7,9,1,3];
+quickSort(arr);
 process.stdout.write(arr+'');
