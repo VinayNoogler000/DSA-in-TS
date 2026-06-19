@@ -1,4 +1,4 @@
-const nums:number[] = [1, 2, 3, 2];
+let nums:number[] = [1, 2, 3, 2];
 // Q1: Find out whether there are any duplicates in the array or not?
 
 // Brute-Force Approach - O(n*n)
@@ -26,4 +26,29 @@ const nums:number[] = [1, 2, 3, 2];
         newSet.add(curr);
     }
     console.log("FALSE - Don't Have any Duplicates!");
-})(nums);
+});
+
+
+
+// Q2: Given an array, we have to find the largest element in the array.
+
+// Brute Force Approach ( using Inbuilt Array.sort() ) - TC O(N*logN), and SC O(1)
+function largestElementInArr(nums:number[]=[4,3,2,1], n=nums.length):number {
+    nums.sort(); // O(N*logN) for worst & avg cases, and O(N) for best case
+    return nums[n-1]!;
+}
+
+// Optimal Approach ( using Single Loop ) - TC O(N) and SC O(1)
+function largestElementInArrOA(nums:number[]=[4,3,2,1], n=nums.length):number {
+    let max = nums[0]!;
+    
+    for (let num of nums) {
+        if (num > max) {
+            max = num;
+        }
+    }
+    
+    return max;
+}
+
+process.stdout.write(largestElementInArrOA() + '');
