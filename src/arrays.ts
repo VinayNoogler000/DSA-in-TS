@@ -128,7 +128,7 @@ function find2ndSmallestAndLargestNumsBA(nums=[4,3,2,1], n=nums.length):number[]
     return [secondSmallest, secondLargest]
 }
 
-// Better Approach (without Any Sorting) - TC O(N) and SC O(1)
+// Optimal Approach (using 2 Loops, without Any Sorting) - TC O(N) and SC O(1)
 function find2ndSmallestAndLargestNumsMBA(nums=[4,3,2,1], n=nums.length):number[] {
     if (n <= 1) return [-1, -1];
 
