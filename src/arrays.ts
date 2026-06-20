@@ -178,4 +178,55 @@ function isArraySortedInAscedingOrder(nums=[1, 2, 3, 4], n=nums.length): boolean
 
     return true;
 }
-process.stdout.write(isArraySortedInAscedingOrder([5, 4, 3, 2, 1]) + "");
+
+
+
+// Q5: Given an integer array sorted in non-decreasing order, remove the duplicates in place such that each unique element appears only once. The relative order of the elements should be kept the same.If there are k elements after removing the duplicates, then the first k elements of the array should hold the final result. It does not matter what you leave beyond the first k elements.
+function removeDuplicatesInArr(nums=[1, 1, 3, 3, 3, 3], n=nums.length): number {
+    if (n <= 1) return n;
+
+    // Brute-Force Approach ONE - TC O(n) and SC O(n)
+    // const result = nums.filter((el, index) => {
+    //     // add the 1st element of the array to the result
+    //     // add only unique numbers to the result, by preventing addition of duplicates to result
+    //     return (index === 0) || (el !== nums[index-1]);
+    // })
+
+    // for (let i=0; i<result.length; i++) {
+    //     nums[i] = result[i]!;
+    // }
+
+    // return result.length;
+
+
+    // Brute-Force Approach TWO - TC O(n) and SC O(n)
+    // const seen = new Set<number>(); // SC O(n)
+    // let idx = 0;
+
+    // for (let num of nums) { // TC O(n)
+    //     const curr = num!;
+
+    //     if (!seen.has(curr)) { // if element not a duplicate (or is a unique)
+    //         seen.add(curr); // add unique element to Set
+    //         nums[idx] = curr; // update nums with unique element
+    //         idx++;
+    //     }
+    // }
+
+    // return idx; // return count of unique elements
+
+    // Optimal Approach (Two-Pointers) - TC O(n) and SC O(1)
+    let i = 0; // last unique element pointer
+    for (let j = 1; j<n; j++) {
+        if (nums[j] !== nums[i]) { // unique element found
+            i++; // move the pointer forward
+            nums[i] = nums[j]!; // add the unique element to that pointer
+        }
+    }
+
+    return i+1; // total count of unique numbers in the array
+}
+let arr = [1, 1, 3, 3, 3, 3]
+const k = removeDuplicatesInArr(arr);
+console.log(arr);
+console.log(arr.slice(0, k));
