@@ -161,4 +161,21 @@ function find2ndSmallestAndLargestNumsMBA(nums=[4,3,2,1], n=nums.length):number[
         secondLargest === -Infinity ? -1 : secondLargest
     ]
 } 
-process.stdout.write(find2ndSmallestAndLargestNumsMBA([1, 1, 2, 3, 3]) + "");
+
+
+
+
+// Q4: Given an array of size n, write a program to check if the given array is sorted in (ascending / Increasing / Non-decreasing) order or not. If the array is sorted then return True, Else return False.
+function isArraySortedInAscedingOrder(nums=[1, 2, 3, 4], n=nums.length): boolean {
+    if (n <= 1) return true; // covers the edge case, where total numbers is 0 or 1 in the array
+
+    // Brute-Force & Optimal Approach - TC O(n) and SC O(1)
+    for (let i=1; i<n; i++) {
+        if (nums[i]! < nums[i-1]!) { // i.e. current element Not >= previous element, means wrong order
+            return false;
+        }
+    }
+
+    return true;
+}
+process.stdout.write(isArraySortedInAscedingOrder([5, 4, 3, 2, 1]) + "");
