@@ -1,3 +1,5 @@
+import { reverseNum } from "./util/numbers";
+
 let nums:number[] = [1, 2, 3, 2];
 // Q1: Find out whether there are any duplicates in the array or not?
 
@@ -264,6 +266,71 @@ function rotateArrToLeftBy1(arr:number[], n=arr.length): void {
     // Assign the first element to the last (n-1) idx of the array, will complete the rotation
     arr[n-1] = firstEle;
 }
-const arr = [1, 2, 3, 4, 5];
-rotateArrToLeftBy1(arr);
+// const arr = [1, 2, 3, 4, 5];
+// rotateArrToLeftBy1(arr);
+// console.log(arr);
+
+
+
+
+// Q7: Given an array of integers, rotating array of elements by k elements either left or right.
+function rotateArrByKSteps(arr:number[], k:number, direction:"left" | "right"): void {
+    const n = arr.length;
+    k %= n; // this protects from such cases when k >= n
+    if (n <= 1 || k == 0) return; // edge case
+
+    //Brute-Force Approach - TC O(n) and SC O(k)
+    // if (direction === "left") {
+    //     const temp = arr.slice(0, k); // stores the first 'k' elements, so that we can access it after the rotation of the elements in the arr[]
+
+    //     // Iterate and shfit all the elements from kth idx to n-1 by 'k' steps
+    //     for (let i=k; i<n; i++) { // from k to n-1
+    //         arr[i-k] = arr[i]!; // shift ith element to left by k steps
+    //     }
+
+    //     // Copy the stored first 'k' elements to the original array to complete the rotation
+    //     for (let i=0; i<k; i++) { // from 0 to k-1
+    //         arr[n - k + i] = temp[i]!; // this ensures that values are rotated and placed at the right index, especially when k > 1
+    //     }
+    // }
+    // else if (direction === "right") {
+    //     const temp = arr.slice(n-k); // stores the last 'k' elements
+
+    //     // Iterate and Shift all elements by k steps to the right
+    //     for (let i=n-k-1; i>=0; i--) {
+    //         arr[i+k] = arr[i]!;
+    //     }
+
+    //     // Copy stored elements to the front
+    //     for (let i=0; i<k; i++) {
+    //         arr[i] = temp[i]!;
+    //     }
+    // }
+
+
+
+    // Optimal Approach - TC O(N) and SC O(1)
+    if (direction === "left") {
+        // Reverse the first k elements from 0 to k-1, then
+        reverseNum(arr, 0, k-1);
+
+        // Reverse the remaning n-k elements from k to n-1, then
+        reverseNum(arr, k, n-1);
+
+        // Reverse the Entire Array
+        reverseNum(arr, 0, n-1);
+    }
+    else if (direction === "right") {
+        // Reverse the Entire Array, then
+        reverseNum(arr, 0, n-1);
+
+        // Reverse the first k elements from 0 to k-1, then
+        reverseNum(arr, 0, k-1);
+
+        // Reverse the remaning n-k elements from k to n-1
+        reverseNum(arr, k, n-1);
+    }
+}
+const arr = [1, 2, 3, 4, 5, 6, 7];
+rotateArrByKSteps(arr, 12, "right");
 console.log(arr);
