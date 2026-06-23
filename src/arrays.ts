@@ -226,7 +226,44 @@ function removeDuplicatesInArr(nums=[1, 1, 3, 3, 3, 3], n=nums.length): number {
 
     return i+1; // total count of unique numbers in the array
 }
-let arr = [1, 1, 3, 3, 3, 3]
-const k = removeDuplicatesInArr(arr);
+// const arr = [1, 1, 3, 3, 3, 3]
+// const k = removeDuplicatesInArr(arr);
+// console.log(arr);
+// console.log(arr.slice(0, k));
+
+
+
+
+// Q6: Given an integer array nums, rotate the array to the left by one.
+function rotateArrToLeftBy1(arr:number[], n=arr.length): void {
+    if (n <= 1) return;
+
+    // Brute Force Approach (using a duplicate array) - TC & SC O(n)
+    // const temp = new Array<number>(n); // Create a temporary array to store the shifted elements
+
+    // // Iterate and Shift the elements to the left by one position
+    // for (let i=1; i<n; i++) {
+    //     temp[i-1] = arr[i]!; 
+    // }
+
+    // temp[n-1] = arr[0]!; // The first element moves to the last position
+
+    // // Update the Original Array
+    // for (let i=0; i<n; i++) {
+    //     arr[i] = temp[i]!;
+    // }
+
+
+    // Optimal Approach (using a Loop) - TC O(n) and SC O(1)
+    const firstEle = arr[0]!; // stores first element, so that we can access it after the modification of 0th idx
+    
+    for (let i=1; i<n; i++) { // Iterate all the elements
+        arr[i-1] = arr[i]!; // shift ith element to left by 1 index
+    }
+
+    // Assign the first element to the last (n-1) idx of the array, will complete the rotation
+    arr[n-1] = firstEle;
+}
+const arr = [1, 2, 3, 4, 5];
+rotateArrToLeftBy1(arr);
 console.log(arr);
-console.log(arr.slice(0, k));
