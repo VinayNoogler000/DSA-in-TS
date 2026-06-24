@@ -369,19 +369,18 @@ function moveZerosToEnd(nums:number[], n=nums.length):void {
 
     
     // Optimal Approaach - TC O(n) and SC O(1)
-    let i = -1; // stores the index of first 0 element
+    let i:number; // stores the index of first 0 element
 
     // Loop to find the index of first 0 element
-    while (i < n) { 
+    for (i = 0; i < n; i++) { 
         if (nums[i] === 0) break;
-        else i++;
     }
-
-    if (i === -1) return; // no zeroes exists in the array
+    
+    if (i === n) return; // no zeroes exists in the array
 
     // Loop to find the positive num after ith idx and swap it with 0 to push all zeroes at the end
     for (let j = i+1; j < n; j++) { // j stores the index of first positive number after ith index
-        if (nums[j]! > 0) {
+        if (nums[j]! !== 0) {
             [ nums[i], nums[j] ] = [ nums[j]!, nums[i]! ];
             i++;
         }
