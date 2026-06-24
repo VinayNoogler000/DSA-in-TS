@@ -331,6 +331,62 @@ function rotateArrByKSteps(arr:number[], k:number, direction:"left" | "right"): 
         reverseNum(arr, k, n-1);
     }
 }
-const arr = [1, 2, 3, 4, 5, 6, 7];
-rotateArrByKSteps(arr, 12, "right");
+// const arr = [1, 2, 3, 4, 5, 6, 7];
+// rotateArrByKSteps(arr, 12, "right");
+// console.log(arr);
+
+
+
+
+// Q8: You are given an array of integers, your task is to move all the zeros in the array to the end of the array and move non-negative integers to the front by maintaining their order.
+function moveZerosToEnd(nums:number[], n=nums.length):void {
+    if (n <= 1) return;
+
+    // Brute-Force Approach - TC & SC O(n)
+    // {
+    // const temp = new Array<number>(); // stores the values in the correct order, where all zeroes are at the end
+
+    // let zeroCount = 0; // stores the count of no. of zeroes in the array
+
+    // // Traverse each and every element, and if it's a positive num then it gets added to temp[] in the same order, but if it's a zero then the zeroCount gets updated
+    // for (let num of nums) { 
+    //     if (num > 0) {
+    //         temp.push(num);
+    //     }
+    //     else zeroCount++;
+    // }
+
+    // // Loop to push all the zeroes to the end of the temp[]
+    // for (let i=0; i<zeroCount; i++) {
+    //     temp.push(0);
+    // }
+
+    // // Update the nums[] by Copy the Final Values of temp[]
+    // for (let i=0; i<n; i++) {
+    //     nums[i] = temp[i]!;
+    // }
+    // }
+
+    
+    // Optimal Approaach - TC O(n) and SC O(1)
+    let i = -1; // stores the index of first 0 element
+
+    // Loop to find the index of first 0 element
+    while (i < n) { 
+        if (nums[i] === 0) break;
+        else i++;
+    }
+
+    if (i === -1) return; // no zeroes exists in the array
+
+    // Loop to find the positive num after ith idx and swap it with 0 to push all zeroes at the end
+    for (let j = i+1; j < n; j++) { // j stores the index of first positive number after ith index
+        if (nums[j]! > 0) {
+            [ nums[i], nums[j] ] = [ nums[j]!, nums[i]! ];
+            i++;
+        }
+    }
+}
+const arr = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1];
+moveZerosToEnd(arr);
 console.log(arr);
