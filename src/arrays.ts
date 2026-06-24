@@ -386,6 +386,20 @@ function moveZerosToEnd(nums:number[], n=nums.length):void {
         }
     }
 }
-const arr = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1];
-moveZerosToEnd(arr);
-console.log(arr);
+// const arr = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1];
+// moveZerosToEnd(arr);
+// console.log(arr);
+
+
+
+
+// Q9 (Linear Search): Given an array, and an element num the task is to find if num is present in the given array or not. If present print the index of the element or print -1.
+function linearSearch(nums:number[], num:number, n=nums.length): number { // TC O(N) & SC O(1)
+    for (let i=0; i<n; i++) { 
+        if (nums[i] === num) {
+            return i;
+        }
+    }
+    return -1;
+}
+console.log(linearSearch([5, 4, 3, 2, 1], 9));
