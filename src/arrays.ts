@@ -402,4 +402,72 @@ function linearSearch(nums:number[], num:number, n=nums.length): number { // TC 
     }
     return -1;
 }
-console.log(linearSearch([5, 4, 3, 2, 1], 9));
+// console.log(linearSearch([5, 4, 3, 2, 1], 9));
+
+
+
+
+/* Q10 (Union of Two Sorted Arrays):
+Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
+The union of two arrays can be defined as the common and distinct elements in the two arrays. NOTE: Elements in the union should be in ascending order. */
+function unionOfSortedArrays(arr1:number[], arr2:number[], n=arr1.length, m=arr2.length): number[] {
+    // Brute-Force Approach - TC O( (n+m)*log(n+m) ) & SC O(D) or O(1), where D is total elements in union of 1st and 2nd arrays
+    // {
+    //     const union = new Set<number>([...arr1, ...arr2]);
+
+    //     // for (let num of arr1) {
+    //     //     union.add(num);
+    //     // }
+
+    //     // for (let num of arr2) {
+    //     //     union.add(num);
+    //     // }
+
+    //     return [...union].sort((a,b) => a-b);
+    // }
+
+
+    // Optimal Approach - TC O(n+m) & SC O(D) or O(1);
+    const union = new Array<number>();
+    
+    let i = 0, j = 0; // iterators of both the sorted arrays 
+    while (i < n && j < m) {
+        if (arr1[i]! < arr2[j]!) { // ith element is less than jth element
+            if (union.length === 0 || union[union.length-1] !== arr1[i]) { // not a duplicate
+                union.push(arr1[i]!);
+            }
+            i++;
+        }
+        else if (arr2[j]! < arr1[i]! && union[union.length-1] !== arr2[j]) { // jth element is smaller than ith element
+            if (union.length === 0 || union[union.length-1] !== arr2[j]) { // not a duplicate
+                union.push(arr2[j]!);
+            } 
+            j++;
+        }
+        else { // Both the arrays' ith and jth elements are equal to each other. 
+            if (union.length === 0 || union[union.length-1] !== arr1[i]) { // not a duplicate
+                union.push(arr1[i]!);
+            }
+            i++; j++;
+        }
+    }
+
+    // Add remaining elements of the first array to the union array. 
+    while (i < n) {
+        if (union.length === 0 || union[union.length-1] !== arr1[i]) { // not a duplicate
+            union.push(arr1[i]!);
+        }
+        i++;
+    }
+
+    // Add remaining elements of the second array to the union array. 
+    while (j < m) {
+        if (union.length === 0 || union[union.length-1] !== arr2[j]) { // not a duplicate
+            union.push(arr2[j]!);
+        }
+        j++;
+    }
+
+    return union;
+}
+console.log(unionOfSortedArrays([1,2,3,4,5,6,7,8,9,10], [2,3,4,4,5,11,12]));
