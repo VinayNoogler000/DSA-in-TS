@@ -1,3 +1,4 @@
+import { register } from "node:module";
 import { reverseNum } from "./util/numbers";
 
 let nums:number[] = [1, 2, 3, 2];
@@ -694,4 +695,64 @@ function findNumWithOneFrequency(arr:number[], n=arr.length): number {
         return xor;
     }
 }
-console.log(findNumWithOneFrequency([4,1,2,1,2]));
+// console.log(findNumWithOneFrequency([4,1,2,1,2]));
+
+
+
+
+/* Q14 (Longest Subarray with given Sum K(Positives)):
+Given an array nums of size n and an integer k, find the length of the longest sub-array that sums to k. If no such sub-array exists, return 0.*/
+function longestSubarrWithSumK(arr:number[], k:number, n=arr.length): number {
+    // Brute-Force Approach - TC O(N^2) and SC O(1)
+    {
+        let maxLen = 0; // stores the max length subarray whose sum === k
+        
+        // Outer loop to traverse and select the start index/element of subarray
+        for (let i=0; i<n; i++) {
+            
+            // Inner loop to traverse, find the sum & length of the current subarray 
+            let j=i+1;
+            let sum = arr[i]!; // stores the sum of elements of current subarray, ranging [i-j]
+            for (; j<n && sum<k; j++) {
+                sum += arr[j]!;
+            }
+            
+            if (sum === k) { // subarray found whose sum is === k
+                let len = j-i; // length of current subarray whose sum === k
+                maxLen = Math.max(len, maxLen);
+            }
+        }
+        
+        return maxLen;
+    }
+
+    // Optimal Approach (using Two-Pointers) - TC O(N) and SC O(1)
+    {
+        let maxLen = 0; // stores the maximum length of the subarray
+
+        let startIdx = 0, endIdx = 0; // stores the start and ending indices of subarray
+
+        let sum = 0; // store the sum of elements of the subarray from start-end indices
+
+        // Traverse all Elements
+        while (endIdx < n) {
+            sum += arr[endIdx]!;
+
+            // If the sum exceeds K, shrink the window from the start
+            while (startIdx <= endIdx && sum > k) {
+                sum -= arr[startIdx]!;
+                startIdx++;
+            }
+            
+            // Update the Maximum Length
+            if (sum === k) {
+                maxLen = Math.max(maxLen, endIdx-startIdx+1);
+            } 
+
+            endIdx++;
+        }
+
+        return maxLen;
+    }
+}
+console.log(longestSubarrWithSumK([-3, 2, 1], 10));
