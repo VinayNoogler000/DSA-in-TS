@@ -557,4 +557,63 @@ function findMissingNum(arr:number[], n=arr.length): number {
         return expSum - sum;
     }
 }
-console.log(findMissingNum([1, 2, 3, 5]));
+// console.log(findMissingNum([1, 2, 3, 5]));
+
+
+
+
+/* Q12 (Count Maximum Consecutive One's in the array):
+Given an array that contains only 1 and 0 return the count of maximum consecutive ones in the array.*/
+function countMaxConsecutiveOneInArr(arr:number[], n=arr.length): number {
+    if (n === 0) return -1;
+
+    // Brute-Force Approach - TC O(N^2) and SC O(1)
+    // {
+    //     let maxCount = 0;
+
+    //     for (let i=0; i<n; i++) {
+
+    //         if (arr[i] === 1) {
+    //             let count = 1;
+                
+    //             for (let j=i+1; j<n; j++) {
+    //                 if (arr[j] === 1) {
+    //                     count++;
+    //                 }
+    //                 else { // num is 0
+    //                     i = j; // to avoid counting for the same numbers again
+    //                     break;
+    //                 }
+    //             }
+
+    //             maxCount = Math.max(count, maxCount);
+    //         }
+    //     }
+    //     return maxCount;
+    // }
+
+
+    // Optimal Approach - TC O(N) and SC O(1)
+    {
+        let maxCount = 0; // stores the max count of consecutive 1s in arr[]
+
+        let count = 0; // stores the count of current consecutive 1s
+
+        // Loop to Count the Consecutive 1s in arr[]
+        for(let i=0; i<n; i++) {
+            if (arr[i] === 1) {
+                count++;
+                maxCount = Math.max(count, maxCount);
+            }
+            else { // num is 0
+                count = 0;
+            }
+
+            // avoid calculating max count in every step, especially when the curr_num is 0, to prevent wastage of resources (computational power)
+            // maxCount = Math.max(count, maxCount);
+        }
+
+        return maxCount;
+    }
+}
+console.log(countMaxConsecutiveOneInArr([1, 1, 0, 1, 1, 1]));
