@@ -616,4 +616,82 @@ function countMaxConsecutiveOneInArr(arr:number[], n=arr.length): number {
         return maxCount;
     }
 }
-console.log(countMaxConsecutiveOneInArr([1, 1, 0, 1, 1, 1]));
+// console.log(countMaxConsecutiveOneInArr([1, 1, 0, 1, 1, 1]));
+
+
+
+
+/* Q13 (Find the number that appears once, and the other numbers twice):
+Given a non-empty array of integers arr, every element appears twice except for one. Find that single one.*/
+function findNumWithOneFrequency(arr:number[], n=arr.length): number {
+    if (n === 0) return -1;
+
+    // Brute-Force Approach - TC O(N^2) and SC O(1)
+    // {
+    //     //Outer Loop selects an element the arr[] in index range [0, n-1]
+    //     for (let i=0; i<n; i++) {
+
+    //         // Inner Loop checks whether the element occurs more than once or not
+    //         let j = 0;
+    //         for (; j<n; j++) {
+    //             if (j === i) continue;
+    //             else if (arr[j] === arr[i]) break; // ith element is not unique in arr[]
+    //         }
+
+    //         if (j === n) { // completed traversing the entire array, so ith element is unique 
+    //             return arr[i]!;
+    //         }
+    //     }
+
+    //     return -1;
+    // }
+
+
+    // Better Approach (Using Hash Array) - TC O(N) and SC O(maxElement+1)), 'cause the size of the array is maxElement + 1
+    // {
+    //     // Find the maximum in array
+    //     let max = -Infinity;
+    //     for (let num of arr) {
+    //         if (num > max) max = num;
+    //     }
+    //     // Or, max = Math.max(...arr);
+
+    //     // Create a Hash Array to store frequencies of each num
+    //     const hash = new Array(max+1).fill(0);
+    //     // Note: it'll be much better in SC [O(N)] if we use Hash-Map, but because it's an array problem, we avoid using any other DS 
+
+    //     // Store frequencies of each num in arr
+    //     for (let num of arr) {
+    //         hash[num]++;
+    //     }
+
+    //     // Traverse and Find the num whose frequency is 1
+    //     for (let num of arr) {
+    //         if (hash[num] === 1) {
+    //             return num;
+    //         }
+    //     }
+
+    //     return -1;
+    // }
+
+
+    // Optimal Approach (Using XOR Bitwise Operation) - TC O(N) and SC O(1)
+    {
+        // Note - Properties of XOR are:
+        // (i) XOR of two same numbers is 0; (ii) XOR of a num with 0 is num itself.
+        // This is why we're using XOR operation to find out a unique num in arr[], cuz XOR of 
+        // duplicate nums will be 0 but unique num will be the num itself, which will be the 
+        // final result. BUT, this only works for the array consisting of only unique num.
+
+        let xor = 0; // stores the XOR (^) of two numbers
+
+        // Calculate the XOR of all num in arr[]
+        for (let num of arr) {
+            xor ^= num;
+        }
+
+        return xor;
+    }
+}
+console.log(findNumWithOneFrequency([4,1,2,1,2]));
