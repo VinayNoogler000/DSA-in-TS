@@ -470,4 +470,91 @@ function unionOfSortedArrays(arr1:number[], arr2:number[], n=arr1.length, m=arr2
 
     return union;
 }
-console.log(unionOfSortedArrays([1,2,3,4,5,6,7,8,9,10], [2,3,4,4,5,11,12]));
+// console.log(unionOfSortedArrays([1,2,3,4,5,6,7,8,9,10], [2,3,4,4,5,11,12]));
+
+
+
+
+/* Q11 (Find the Missing Number):
+Given an array arr[] of size n-1 with distinct integers in the range of [1, n]. This array represents a permutation of the integers from 1 to n with one element missing. Find the missing element in the array. */
+function findMissingNum(arr:number[], n=arr.length): number {
+    if (n <= 1) return -1; // edge case
+    
+    // Brute-Force Approach - TC O(N^2) and SC O(1)
+    // {
+    //     let num = 1; // missing num we need to find in the arr[]
+    //     while (num <= n) {
+    //         let isFound = false;
+
+    //         // Linear Search to check if the num is missing from the arr[] or not
+    //         for (let el of arr) {
+    //             if (num === el) {
+    //                 isFound = true;
+    //             }
+    //         }
+
+    //         if (!isFound) { // num missing (not found)
+    //             break;
+    //         }
+    //         else num++; // num not missing
+    //     }
+
+    //     return num;
+    // }
+
+
+    // Better Approach - TC O(N*logN) and SC O(1)
+    // {
+    //     arr.sort((a, b) => a-b); //sort in ascending order from 1->n
+    //     let missingNum:number = -1;
+        
+    //     for (let i=0; i<n-1; i++) {
+    //         let curr = arr[i]!;
+    //         let next = arr[i+1]!;
+            
+    //         if (curr+1 !== next) {
+    //             missingNum = curr+1;
+    //             break;
+    //         }
+    //     }
+
+    //     return missingNum;
+    // }
+
+
+    // More Better Approach (using Hashing) - TC O(N) and SC O(N)
+    // {
+    //     // const set = new Set<number>([...arr]); // avoid it, cuz it's an array problem, not Set!
+    //     const hash = new Array(n+1).fill(0);
+
+    //     // Store the frequencies of each element in Hash[]
+    //     for (let el of arr) {
+    //         hash[el]++;
+    //     }
+
+    //     // Find the missing num (whose frequency is 0) between 1-N,
+    //     let num:number;
+    //     for (num=1; num <= n; num++) {
+    //         if (hash[num] === 0) break;
+    //     }
+    //     return num;
+    // }
+
+
+    // Optimal Approach (using Sum of N-terms Formula) - TC O(N) and SC O(1)
+    {
+        // Calculate the Sum of all Elements of the Array
+        let sum = 0;
+        for (let num of arr) {
+            sum += num;
+        }
+        
+        // Calculate the Expected Sum using Formula for first N+1 natural numbers, instead of just N
+        n += 1;
+        let expSum = Math.floor((n * (n + 1)) / 2);
+
+        // Subtract the Sum of Elements from the Expected Sum to get Missing Num
+        return expSum - sum;
+    }
+}
+console.log(findMissingNum([1, 2, 3, 5]));
