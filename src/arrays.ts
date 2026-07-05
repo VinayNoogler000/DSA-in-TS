@@ -755,4 +755,83 @@ function longestSubarrWithSumK(arr:number[], k:number, n=arr.length): number {
         return maxLen;
     }
 }
-console.log(longestSubarrWithSumK([-3, 2, 1], 10));
+// console.log(longestSubarrWithSumK([-3, 2, 1], 10));
+
+
+
+
+/* Q15 (Length of the longest subarray with zero Sum):
+Given an array containing both positive and negative integers, we have to find the length of the longest subarray with the sum of all elements equal to zero.*/
+function lengthOfLongestSubarrWith0Sum(arr:number[], n=arr.length): number {
+    if (n === 0) return -1; //edge case
+
+    // Brute-Force Approach - TC O(N^3) and SC O(1)
+    // {
+    //     let longestSubarrLen = 0;
+        
+    //     for (let i=0; i<n; i++) { // start index of subarr
+    //         for (let j=i; j<n; j++) { // end index of subarr
+    //             let sum = arr[i]!; // stores the sum of elements in the subarray (range i-j)
+                
+    //             // calculate sum of the elements in the subarray
+    //             let k=i+1;
+    //             for (; k<=j; k++) { 
+    //                 sum += arr[k]!;
+    //             }
+                
+    //             // Update the longest length subarray whose sum == 0
+    //             if (sum === 0) {
+    //                 let currSubarrLen = k-i;
+    //                 longestSubarrLen = Math.max(currSubarrLen, longestSubarrLen);
+    //             }
+    //         }
+    //     }
+        
+    //     return longestSubarrLen;
+    // }
+
+    // Better Approach - TC O(N^2) and SC O(1)
+    // {
+    //     let longestSubarrLen = 0;
+
+    //     for (let i=0; i<n; i++) {
+    //         let sum = 0;
+    //         for (let j=i; j<n; j++) {
+    //             sum += arr[j]!;
+
+    //             if (sum === 0) {
+    //                 let currSubarrLen = (j-i)+1;
+    //                 longestSubarrLen = Math.max(currSubarrLen, longestSubarrLen);
+    //             }
+    //         }
+    //     }
+
+    //     return longestSubarrLen;
+    // }
+
+    // Optimal Approach - TC O(N) and SC O(N) (or O(1), if helper Map is not considered)
+    {
+        let maxSubarrLen = 0, sum = 0; // stores the longest subarray length whose sum == 0, and curr sub array sum of elements, respectively
+        let map = new Map<number, number>(); // stores the sum of elements of subarr till ith idx which is the end idx
+
+        for (let i=0; i<n; i++) {
+            sum += arr[i]!;
+
+            if (sum === 0) {
+                maxSubarrLen = i+1;
+            }
+            else { // if sum < or > 0
+                if (map.has(sum)) { // then calculate the subarr length from prev idx till ith idx, and update "maxSubarrLen"
+                    let currSubarrLen =  i - map.get(sum)!;
+                    maxSubarrLen = Math.max(maxSubarrLen, currSubarrLen);
+                }
+                else { // add the record
+                    map.set(sum, i);
+                }
+            }
+        }
+
+        return maxSubarrLen;
+    }
+}
+console.log(lengthOfLongestSubarrWith0Sum([6, -2, 2, -8, 1, 7, 4, -10]));
