@@ -834,4 +834,80 @@ function lengthOfLongestSubarrWith0Sum(arr:number[], n=arr.length): number {
         return maxSubarrLen;
     }
 }
-console.log(lengthOfLongestSubarrWith0Sum([6, -2, 2, -8, 1, 7, 4, -10]));
+// console.log(lengthOfLongestSubarrWith0Sum([6, -2, 2, -8, 1, 7, 4, -10]));
+
+
+
+
+/* Q16 (Two Sum : Check if a pair with given sum exists in Array):
+Given an array of integers arr[] and an integer target.
+1st variant: Return YES if there exist two numbers such that their sum is equal to the target. Otherwise, return NO.
+2nd variant: Return indices of the two numbers such that their sum is equal to the target. Otherwise, we will return {-1, -1}.*/
+function twoSum (arr:number[], target:number, n=arr.length): void{
+    if (n <= 1) {
+        console.log("1st Variant: NO\n2nd Variant: [-1, -1]");
+        return;
+    }
+
+    // Brute-Force Approach - TC O(N^2) and SC O(1)
+    // {
+    //     for (let i=0; i<n; i++) {
+    //         for (let j=i+1; j<n; j++) {
+    //             if ((arr[i]! + arr[j]!) === target) {
+    //                 console.log(`1st Variant: YES\n2nd Variant: [${i},${j}]`);
+    //                 return;
+    //             }
+    //         }
+    //     }
+    //     console.log(`1st Variant: NO\n2nd Variant: [-1, -1]`);
+    // }
+
+    // Better Approach (Greedy [Using Sorting & Two-Pointers]) - TC = O(N * logN) and SC O(N)
+    // {
+    //     // Create helper array to store num of OG array with their indices as elements
+    //     const numsWithIdx = arr.map((val, idx) => [val, idx]); 
+
+    //     // Sort the array in ascending/increasing order
+    //     numsWithIdx.sort((a,b) => a[0] - b[0]);
+
+    //     // Define Two Pointers: left & right, pointing to 0th and n-1 indicies
+    //     let left = 0, right = n-1, sum:number;
+
+    //     // Loop until left < right
+    //     while (left < right) {
+    //         sum = numsWithIdx[left][0] + numsWithIdx[right][0]; // Calculate Sum
+
+    //         if (sum === target) { // Pair Found
+    //             console.log(`1st Variant: YES\n2nd Variant: [${numsWithIdx[left][1]},${numsWithIdx[right][1]}]`);
+    //             return;
+    //         }
+    //         else if (sum < target) { // Increment left idx by 1, 'cause right idx is already stores maximum num
+    //             left++;
+    //         }
+    //         else { // Decrement right idx by 1, 'cause left idx is already stores minimum num
+    //             right--;
+    //         }
+    //     }
+
+    //     // After looping all the elements, if Pair not Found, then
+    //     console.log("1st Variant: NO\n2nd Variant: [-1, -1]");
+    // }
+
+    // Optimal Approach (Usin Map) - TC & SC = O(N)
+    {
+        const map = new Map<number, number>();
+
+        for (let i=0; i<n; i++) { // Iterate over all elements
+            const secondEl = target - arr[i]!;
+            if ( map.has(secondEl) ) { // Check if 2nd element (x) exists in map
+                console.log(`1st Variant: YES\n2nd Variant: [${map.get(secondEl)}, ${i}]`); // Pair found
+                return;
+            }
+            else { // if 2nd element (x) doesn't exists in map
+                map.set(arr[i], i); // Store current element and index
+            }
+        }
+        console.log(`1st Variant: NO\n2nd Variant: [-1, -1]`); // No pair found
+    }
+}
+twoSum([2,6,5,8,11], 14);
