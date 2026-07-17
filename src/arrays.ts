@@ -1,5 +1,6 @@
 import { register } from "node:module";
 import { reverseNum } from "./util/numbers";
+import { arrayBuffer } from "node:stream/consumers";
 
 let nums:number[] = [1, 2, 3, 2];
 // Q1: Find out whether there are any duplicates in the array or not?
@@ -910,4 +911,74 @@ function twoSum (arr:number[], target:number, n=arr.length): void{
         console.log(`1st Variant: NO\n2nd Variant: [-1, -1]`); // No pair found
     }
 }
-twoSum([2,6,5,8,11], 14);
+// twoSum([2,6,5,8,11], 14);
+
+
+
+
+/* Q17 (Sort an array of 0s, 1s and 2s):
+Given an array nums consisting of only 0, 1, or 2. Sort the array in non-decreasing order. The sorting must be done in-place, without making a copy of the original array.*/
+function sortArrOf0s1s2s(arr:number[], n=arr.length) {
+    // Brute-Force Approach - TC = O(N) and SC O(1)
+    // {
+    //     // Loop the array to find the count of 0s, 1s and 2s
+    //     let zeros = 0, ones = 0, twos = 0;
+    //     for (let i=0; i<n; i++) {
+    //         if (arr[i] === 0) zeros++;
+    //         else if (arr[i] === 1) ones++;
+    //         else twos++;
+    //     }
+
+    //     let i = 0; // idx where elements (0, 1 & 2) will be stored
+
+    //     // Loop to add 0s to the array
+    //     // for (let j=1; i<n && j<=zeros; j++, i++) {
+    //     //     arr[i] = 0;
+    //     // }
+    //     while (zeros-- > 0) {
+    //         arr[i++] = 0;
+    //     }
+
+    //     // Loop to add 1s to the array
+    //     // for (let j=1; i<n && j<=ones; j++, i++) {
+    //     //     arr[i] = 1;
+    //     // }
+    //     while (ones-- > 0) {
+    //         arr[i++] = 1;
+    //     }
+
+    //     // Loop to add 2s to the array
+    //     // for (let j=1; i<n && j<=twos; j++, i++) {
+    //     //     arr[i] = 2;
+    //     // }
+    //     while (twos-- > 0) {
+    //         arr[i++] = 2;
+    //     }
+
+    //     console.log(arr);
+    // }
+
+    // Optimal Approach (Dutch National Flag Algo.) - TC - O(N) and SC O(1)
+    {
+        // Initialize three pointers: low, mid & hight, to hypothetically divide the array into three partitions
+        let low = 0, mid = 0, high = n-1;
+
+        // Traverse until mid crosses high
+        while (mid <= high) {
+            if (arr[mid] === 0) { // swap with element at low idx, and move both idices by 1
+                [ arr[mid], arr[low] ] = [ arr[low], arr[mid] ];
+                low++; mid++;
+            }
+            else if(arr[mid] === 1) { // just increment the mid by 1
+                mid++;
+            }
+            else { // swap with element at high idx, and just decrement high idx by 1
+                [ arr[high], arr[mid] ] = [ arr[mid], arr[high] ];
+                high--;
+            }
+        }
+
+        console.log(arr);
+    }
+}
+sortArrOf0s1s2s([2, 0, 2, 1, 1, 0]);
