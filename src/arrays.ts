@@ -981,4 +981,51 @@ function sortArrOf0s1s2s(arr:number[], n=arr.length) {
         console.log(arr);
     }
 }
-sortArrOf0s1s2s([2, 0, 2, 1, 1, 0]);
+// sortArrOf0s1s2s([2, 0, 2, 1, 1, 0]);
+
+
+
+function topKMostFreqEls(arr=[1,1,2,2,2,3], k=2, n=arr.length):number[] {
+    // Brute Force - TC O(N log N) & SC O(N)
+    
+    // // Get the Count of Each Element in an Object
+    // const count:{ [e:number] : number} = {};
+    // for (const val of arr) {
+    //     count[val] = (count[val] || 0) + 1;
+    // }
+
+    // // Sort in descending order based on element's frequency
+    // const sorted = Object.entries(count).sort((a, b) => b[1] - a[1]);
+
+    // // Loop and get Kth most frequent elements
+    // return sorted.slice(0, k).map((pair) => Number(pair[0]));
+
+
+
+    // Optimized Approach (Bucket Sort) - TC & SC O(N)
+
+    // Get the Count of Each Element in an Object
+    const count:{ [e:number] : number} = {};
+    for (const val of arr) {
+        count[val] = (count[val] || 0) + 1;
+    }
+
+    // Create another array whose index will be === frequency(e) storing elements, as max frequency will be == n
+    const buckets:number[][] = Array.from({length: n+1}, () => []);
+    
+    // Loop every key-value pairs in count, and add element to it's respective frequency index in the buckets[]
+    for (const [e, c] of Object.entries(count)) {
+        buckets[c]?.push(Number(e));
+    }
+
+    // Loop the buckets[] from backwards, and return the result
+    const result:number[] = [];
+    for (let i=n-1; i>=0 && k>0; i--) {
+        if (buckets[i]?.length! > 0) {
+            result.push(...buckets[i]!);
+            k--;
+        }
+    }
+
+    return result;
+}

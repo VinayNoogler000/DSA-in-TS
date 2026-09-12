@@ -1,5 +1,7 @@
 // HashMap Implementation
 
+import type { BlobOptions } from "buffer";
+
 type Pair<K, V> = [K, V]
 
 class MyHashMap<K, V> {

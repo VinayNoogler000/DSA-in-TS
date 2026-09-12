@@ -249,4 +249,33 @@ function findHighestNLowestFrequencyNum2(nums:number[]=[10, 5, 10, 15, 10, 5], n
     console.log("The highest frequency element is: ", max[0], ": ",  max[1]);
     console.log("The lowest frequency element is: ", min[0], ": ",  min[1]);
 }
-findHighestNLowestFrequencyNum2([2,2,3,4,4,2]);
+// findHighestNLowestFrequencyNum2([2,2,3,4,4,2]);
+
+
+
+
+
+function isValidAnagram(s="listen", t="silent"): boolean {
+    if (s.length !== t.length) return false;
+    
+    const map = new MyHashMap<string, number>();
+    let char;
+    // Frequency Counter
+    for (let i=0; i<s.length; i++) {
+        char = s.charAt(i);
+        map.set(char, (map.get(char) || 0) + 1);
+    }
+
+    // Match Both Strings
+    for (let i=0; i<t.length; i++) {
+        char = t.charAt(i);
+        let charCount = map.get(char)
+
+        if (!charCount) return false; // char of 't' doesn't exists in 's', or char count is 0
+        
+        map.set(char, charCount-1); // char exists in both strings, so decresae the count by 1
+    }
+
+    return true;
+}
+console.log(isValidAnagram());
