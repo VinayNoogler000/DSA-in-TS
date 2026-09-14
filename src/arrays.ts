@@ -1,6 +1,8 @@
 import { register } from "node:module";
 import { reverseNum } from "./util/numbers";
 import { arrayBuffer } from "node:stream/consumers";
+import type { BlobOptions } from "node:buffer";
+import { convertProcessSignalToExitCode } from "node:util";
 
 let nums:number[] = [1, 2, 3, 2];
 // Q1: Find out whether there are any duplicates in the array or not?
@@ -1029,3 +1031,37 @@ function topKMostFreqEls(arr=[1,1,2,2,2,3], k=2, n=arr.length):number[] {
 
     return result;
 }
+
+
+
+function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words.length): void {
+    // Brute Force Approach - TC O(n^2 * k log k) & SC O(N*K)
+
+    const groups:string[][] = []; // SC O(N*K)
+    const visited:boolean[] = []; // SC O(N)
+
+    let k = 0;
+    for (let i=0; i<n; i++) { // TC O(N)
+        if (visited[i]) continue;
+
+        groups[k] = [words[i]!]; // create new group of anagram
+        const sortedIthWord = [...words[i]!].sort((a, b) => a.localeCompare(b)).join(""); // TC O(k log k)
+        visited[i] = true; // mark the ith word visited
+
+        for (let j = i + 1; j < n; j++) { // TC O(N)
+            if (visited[j]) continue;
+
+            // compare words to find anagram
+            if (sortedIthWord === [...words[j]!].sort((a, b) => a.localeCompare(b)).join("")) { // matched - TC O(k log k)
+                groups[k]?.push(words[j] as string); // push the word to kth anagram group
+                visited[j] = true; // mark the jth word visited
+            }
+        }
+
+        k++;  // increment the kth idx of group[] by 1
+    }
+
+    // return groups;
+    console.dir(groups);
+}
+groupAnagrams();
