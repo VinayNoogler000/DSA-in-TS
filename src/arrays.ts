@@ -1035,7 +1035,7 @@ function topKMostFreqEls(arr=[1,1,2,2,2,3], k=2, n=arr.length):number[] {
 
 
 function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words.length): void {
-    // Brute Force Approach - TC O(n^2 * k log k) & SC O(N*K)
+    // Brute Force Approach - TC O(n^2 * K log k) & SC O(N*K)
     // {
     //     const groups:string[][] = []; // SC O(N*K)
     //     const visited:boolean[] = []; // SC O(N)
@@ -1045,9 +1045,9 @@ function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words
     //         if (visited[i]) continue;
             
     //         groups[k] = [words[i]!]; // create new group of anagram
-    //         const sortedIthWord = [...words[i]!].sort((a, b) => a.localeCompare(b)).join(""); // TC O(k log k)
     //         visited[i] = true; // mark the ith word visited
-            
+    
+    //         const sortedIthWord = [...words[i]!].sort((a, b) => a.localeCompare(b)).join(""); // TC O(k log k)
     //         for (let j = i + 1; j < n; j++) { // TC O(N)
     //             if (visited[j]) continue;
                 
@@ -1067,16 +1067,42 @@ function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words
     // }
 
     // Optimized Approach - TC O(N * K Log K) & SC O(N*K)
-    {
-        const grp = new Map<string, string[]>(); // keys (sorted words) & values (original words[] i.e anagrams)
-        let sortedWord:string, value:string[];
-        for (const w of words) { // TC O(N * k log k)
-            sortedWord = [...w].sort((a,b) => a.localeCompare(b)).join('');
-            if (grp.has(sortedWord)) grp.get(sortedWord)!.push(w);
-            else grp.set(sortedWord, [w]);
-        }
+    // {
+    //     const grp = new Map<string, string[]>(); // keys (sorted words) & values (original words[] i.e anagrams)
+    //     let sortedWord:string, value:string[];
+    //     for (const w of words) { // TC O(N * k log k)
+    //         sortedWord = [...w].sort((a,b) => a.localeCompare(b)).join('');
+    //         if (grp.has(sortedWord)) grp.get(sortedWord)!.push(w);
+    //         else grp.set(sortedWord, [w]);
+    //     }
 
-        console.log( Array.from(grp.values()) ); // TC O(N) & SC O(N * K)
+    //     console.log( Array.from(grp.values()) ); // TC O(N) & SC O(N * K)
+    // }
+
+    // Best Approach - TC & SC = O(N*K)
+    {
+
+        const grps = new Map<string, string[]>(); // SC = O(N * K)
+        
+        for (const word of words) { // TC = O(N)
+            // Create an array to store frequency count of every char in the word
+            const freqCount:number[] = new Array(26).fill(0); // SC = O(26) => O(1)
+            
+            // Loop to count the freq. of every char in the word
+            for (const char of word) { // TC = O(K)
+                const idx = char.charCodeAt(0) - 97;
+                freqCount[idx]!++;
+            }
+            
+            // Covert freqCount[] to a string with delimitter ',' to use it as the Key of groups{} map, so that we can group those words together which have same char. freq. count (or are anagrams).
+            const countAsKey = freqCount.join(','); // instead of sorted word[i], to decrease time complexity
+            
+            // Add word to group/bucket of anagrams associated to 'key'
+            if (!grps.has(countAsKey)) grps.set(countAsKey, [word]);
+            else grps.get(countAsKey)?.push(word);
+        }
+        
+        console.dir(Array.from(grps.values()));
     }
 }
-groupAnagrams();
+    groupAnagrams();
