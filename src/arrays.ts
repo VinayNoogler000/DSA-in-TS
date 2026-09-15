@@ -1036,32 +1036,47 @@ function topKMostFreqEls(arr=[1,1,2,2,2,3], k=2, n=arr.length):number[] {
 
 function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words.length): void {
     // Brute Force Approach - TC O(n^2 * k log k) & SC O(N*K)
+    // {
+    //     const groups:string[][] = []; // SC O(N*K)
+    //     const visited:boolean[] = []; // SC O(N)
+        
+    //     let k = 0;
+    //     for (let i=0; i<n; i++) { // TC O(N)
+    //         if (visited[i]) continue;
+            
+    //         groups[k] = [words[i]!]; // create new group of anagram
+    //         const sortedIthWord = [...words[i]!].sort((a, b) => a.localeCompare(b)).join(""); // TC O(k log k)
+    //         visited[i] = true; // mark the ith word visited
+            
+    //         for (let j = i + 1; j < n; j++) { // TC O(N)
+    //             if (visited[j]) continue;
+                
+    //             // compare words to find anagram
+    //             if (sortedIthWord === [...words[j]!].sort((a, b) => a.localeCompare(b)).join("")) { // matched - TC O(k log k)
+    //                 groups[k]?.push(words[j] as string); // push the word to kth anagram group
+    //                 visited[j] = true; // mark the jth word visited
+    //             }
+    //         }
+        
+    //         k++;  // increment the kth idx of group[] by 1
+    //     }
 
-    const groups:string[][] = []; // SC O(N*K)
-    const visited:boolean[] = []; // SC O(N)
+    // // return groups;
+    // console.dir(groups);
+    
+    // }
 
-    let k = 0;
-    for (let i=0; i<n; i++) { // TC O(N)
-        if (visited[i]) continue;
-
-        groups[k] = [words[i]!]; // create new group of anagram
-        const sortedIthWord = [...words[i]!].sort((a, b) => a.localeCompare(b)).join(""); // TC O(k log k)
-        visited[i] = true; // mark the ith word visited
-
-        for (let j = i + 1; j < n; j++) { // TC O(N)
-            if (visited[j]) continue;
-
-            // compare words to find anagram
-            if (sortedIthWord === [...words[j]!].sort((a, b) => a.localeCompare(b)).join("")) { // matched - TC O(k log k)
-                groups[k]?.push(words[j] as string); // push the word to kth anagram group
-                visited[j] = true; // mark the jth word visited
-            }
+    // Optimized Approach - TC O(N * K Log K) & SC O(N*K)
+    {
+        const grp = new Map<string, string[]>(); // keys (sorted words) & values (original words[] i.e anagrams)
+        let sortedWord:string, value:string[];
+        for (const w of words) { // TC O(N * k log k)
+            sortedWord = [...w].sort((a,b) => a.localeCompare(b)).join('');
+            if (grp.has(sortedWord)) grp.get(sortedWord)!.push(w);
+            else grp.set(sortedWord, [w]);
         }
 
-        k++;  // increment the kth idx of group[] by 1
+        console.log( Array.from(grp.values()) ); // TC O(N) & SC O(N * K)
     }
-
-    // return groups;
-    console.dir(groups);
 }
 groupAnagrams();
