@@ -1112,25 +1112,53 @@ function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words
 
 
 
-function longestConsecutiveSequence(nums=[100, 4, 200, 1, 3, 2, ], n=nums.length): number {
+function longestConsecutiveSequence(nums=[100, 4, 200, 1, 3, 2,], n=nums.length): number {
     // Brute-Force Approach - TC O(n log n) 
-    {
-        nums.sort((a, b) => a - b); // TC O(n log n)
+    // {
+    //     if (nums.length <= 1) return nums.length;
+
+    //     nums.sort((a, b) => a - b); // TC O(n log n)
         
-        let longSeqLen = 1, currSeqLen = 1;
+    //     let longSeqLen = 1, currSeqLen = 1;
         
-        for (let i=1; i<n; i++) {
-            if (nums[i] === nums[i-1]! + 1 ) { // consecutive num
-                currSeqLen++;
-            }  
-            else if (nums[i] !== nums[i-1] ) { // non-consecutive num
-                currSeqLen = 1;
-            }
-            else continue; // if duplicates, skip
+    //     for (let i=1; i<n; i++) {
+    //         if (nums[i] === nums[i-1]! + 1 ) { // consecutive num
+    //             currSeqLen++;
+    //         }  
+    //         else if (nums[i] !== nums[i-1] ) { // non-consecutive num
+    //             currSeqLen = 1;
+    //         }
+    //         else continue; // if duplicates, skip
             
-            longSeqLen = Math.max(currSeqLen, longSeqLen);
-        }
+    //         longSeqLen = Math.max(currSeqLen, longSeqLen);
+    //     }
         
+    //     return longSeqLen;
+    // }
+
+    // Optimized Approach - TC & SC O(n)
+    {
+        if (n <= 1) return n;
+
+        const visited = new Set<number>(); // SC O(n)
+        
+        for (let i=0; i<n; i++) { // TC O(n)
+            if (!visited.has(nums[i]!)) visited.add(nums[i]!);
+        } 
+
+        let longSeqLen = 1, currSeqLen:number, currNum:number;
+        for (const val of visited) { // TC O(n)
+            if (!visited.has(val - 1)) { // start of sequence found
+                currNum = val; currSeqLen = 1;
+
+                while (visited.has(currNum + 1)) {
+                    currNum++; currSeqLen++;
+                }
+
+                longSeqLen = Math.max(longSeqLen, currSeqLen);
+            }
+        }
+
         return longSeqLen;
     }
 }
