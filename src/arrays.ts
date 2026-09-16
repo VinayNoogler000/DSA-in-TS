@@ -1031,6 +1031,8 @@ function topKMostFreqEls(arr=[1,1,2,2,2,3], k=2, n=arr.length):number[] {
 
     return result;
 }
+// console.log(topKMostFreqEls());
+
 
 
 
@@ -1105,4 +1107,31 @@ function groupAnagrams(words=["eat", "tea", "tan", "ate", "nat", "bat"], n=words
         console.dir(Array.from(grps.values()));
     }
 }
-    groupAnagrams();
+// groupAnagrams();
+
+
+
+
+function longestConsecutiveSequence(nums=[100, 4, 200, 1, 3, 2, ], n=nums.length): number {
+    // Brute-Force Approach - TC O(n log n) 
+    {
+        nums.sort((a, b) => a - b); // TC O(n log n)
+        
+        let longSeqLen = 1, currSeqLen = 1;
+        
+        for (let i=1; i<n; i++) {
+            if (nums[i] === nums[i-1]! + 1 ) { // consecutive num
+                currSeqLen++;
+            }  
+            else if (nums[i] !== nums[i-1] ) { // non-consecutive num
+                currSeqLen = 1;
+            }
+            else continue; // if duplicates, skip
+            
+            longSeqLen = Math.max(currSeqLen, longSeqLen);
+        }
+        
+        return longSeqLen;
+    }
+}
+console.log(longestConsecutiveSequence());
