@@ -92,10 +92,15 @@ function getMaxLengthOfString(str:string): number {
     }
 }
 
+function isAlhpaNumeric(str:string):boolean {
+    return /^[a-z0-9]+$/i.test(str);
+}
+
 export {
     isStringHasLowerCase,
     isStringHasUpperCase,
     isStringHasNums,
     isStringHasSymbols,
     getMaxLengthOfString,
+    isAlhpaNumeric
 }
