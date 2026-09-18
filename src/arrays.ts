@@ -3,6 +3,7 @@ import { reverseNum } from "./util/numbers";
 import { arrayBuffer } from "node:stream/consumers";
 import type { BlobOptions } from "node:buffer";
 import { convertProcessSignalToExitCode } from "node:util";
+import { isAlhpaNumeric } from "./util/stringFunctions";
 
 let nums:number[] = [1, 2, 3, 2];
 // Q1: Find out whether there are any duplicates in the array or not?
@@ -1162,4 +1163,28 @@ function longestConsecutiveSequence(nums=[100, 4, 200, 1, 3, 2,], n=nums.length)
         return longSeqLen;
     }
 }
-console.log(longestConsecutiveSequence());
+// console.log(longestConsecutiveSequence());
+
+
+
+
+// Only check for Alpha-Numeric characters.
+function validPalindrome(str=['R', 'a', 'c', 'e', ' ', 'c', 'a', 'r'], n=str.length):boolean {
+    // Brute-force Approach => TC & SC O(n)
+    {
+        // Clean non-alphanum chars
+        const cleaned:string[] = []; // SC O(n)
+        for (let i=0; i<n; i++) { // TC O(n)
+            if ( isAlhpaNumeric(str[i]!) ) {
+                cleaned.push(str[i]!.toLowerCase());
+            }
+        }
+
+        // Reverse string
+        const reverse = cleaned.toReversed(); // TC & SC O(n)
+
+        // Compare string
+        return reverse.toString() === cleaned.toString();
+    }
+}
+console.log(validPalindrome());
