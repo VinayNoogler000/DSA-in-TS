@@ -1171,20 +1171,36 @@ function longestConsecutiveSequence(nums=[100, 4, 200, 1, 3, 2,], n=nums.length)
 // Only check for Alpha-Numeric characters.
 function validPalindrome(str=['R', 'a', 'c', 'e', ' ', 'c', 'a', 'r'], n=str.length):boolean {
     // Brute-force Approach => TC & SC O(n)
+    // {
+    //     // Clean non-alphanum chars
+    //     const cleaned:string[] = []; // SC O(n)
+    //     for (let i=0; i<n; i++) { // TC O(n)
+    //         if ( isAlhpaNumeric(str[i]!) ) {
+    //             cleaned.push(str[i]!.toLowerCase());
+    //         }
+    //     }
+
+    //     // Reverse string
+    //     const reverse = cleaned.toReversed(); // TC & SC O(n)
+
+    //     // Compare string
+    //     return reverse.toString() === cleaned.toString();
+    // }
+
+    // Optimized Approach (two pointers) => TC O(n) & SC O(1)
     {
-        // Clean non-alphanum chars
-        const cleaned:string[] = []; // SC O(n)
-        for (let i=0; i<n; i++) { // TC O(n)
-            if ( isAlhpaNumeric(str[i]!) ) {
-                cleaned.push(str[i]!.toLowerCase());
+        let left=0, right=n-1;
+
+        while (left < right) { // TC O(n)
+            if ( isAlhpaNumeric(str[left]!) && isAlhpaNumeric(str[right]!) ) {
+                if (str[left]?.toLowerCase() !== str[right]?.toLowerCase()) return false;
+                left++; right--;
             }
+            else if ( !isAlhpaNumeric(str[left]!) ) left++;
+            else right--; // when str[right] isn't alpha-numeric
         }
 
-        // Reverse string
-        const reverse = cleaned.toReversed(); // TC & SC O(n)
-
-        // Compare string
-        return reverse.toString() === cleaned.toString();
+        return true;
     }
 }
 console.log(validPalindrome());
