@@ -1203,4 +1203,38 @@ function validPalindrome(str=['R', 'a', 'c', 'e', ' ', 'c', 'a', 'r'], n=str.len
         return true;
     }
 }
-console.log(validPalindrome());
+// console.log(validPalindrome());
+
+
+
+// Find two nums whose sum == target. Array is sorted, and indices should be 1-based (not 0-based)
+function twoSum2(nums=[2, 5, 8, 11, 15, 19], target=19, n=nums.length): number[] {
+    if (n <= 1) return [-1, -1];
+
+    // Brute-force approach - TC O(n^2) & SC O(1)
+    // {
+    //     for (let i=0; i<n; i++) {
+    //         for (let j=i+1; j<n; j++) {
+    //             if (nums[i]! + nums[j]! === target) {
+    //                 return [i+1, j+1];
+    //             }
+    //         }
+    //     }
+    // }
+
+    // Optimized approach (Two-Pointers Converging) - TC O(n^2) & SC O(1)
+    {
+        let left = 0, right = n-1;
+        let sum = 0;
+        while (left < right) {
+            sum = nums[left]! + nums[right]!;
+            
+            if ( sum === target ) return [left+1, right+1];
+            else if (sum > target) right--;
+            else left++; // sum < target
+        }
+    }
+
+    return [-1, -1];
+}
+console.log(twoSum2());
