@@ -1237,4 +1237,41 @@ function twoSum2(nums=[2, 5, 8, 11, 15, 19], target=19, n=nums.length): number[]
 
     return [-1, -1];
 }
-console.log(twoSum2());
+// console.log(twoSum2());
+
+
+
+
+function containerWithMostWater(heights=[1, 1], n=heights.length): number {
+    let maxArea = 0, width:number, height:number, area:number;
+    
+    // Brute-force Approach (nested loops) => TC O(n^2) & SC O(1)
+    // {
+    //     for (let i=0; i<n; i++) {
+    //         for (let j=i+1; j<n; j++) {
+    //             width = j - i;
+    //             height = Math.min(heights[i]!, heights[j]!);
+    //             area = width * height;
+    //             if (area > maxArea) maxArea = area;
+    //         }
+    //     }
+    // }
+
+    // Optimized Approach (two-pointers converging) => TC O(n) & SC O(1)
+    {
+        let left=0, right=n-1;
+
+        while (left < right) {
+            width = right - left;
+            height = Math.min( heights[left]!, heights[right]! );
+            area = width * height;
+            if (area > maxArea) maxArea = area;
+
+            if (heights[left]! <= heights[right]!) left++;
+            else right--;
+        }
+    }
+
+    return maxArea;
+}
+console.log(containerWithMostWater());
